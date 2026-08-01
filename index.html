@@ -110,20 +110,47 @@
     max-width: 1100px; margin:0 auto; padding: 8px 24px;
     display:flex; align-items:center; gap: 14px; font-size:.76rem; font-weight:700; color: var(--tan-dark);
   }
+  .awareness-icon{ display:inline-block; animation: compassSpin 6s ease-in-out infinite; }
+  @keyframes compassSpin{ 0%,100%{ transform: rotate(-10deg); } 50%{ transform: rotate(10deg); } }
   .awareness-track-wrap{ position:relative; flex:1; display:flex; align-items:center; }
   .awareness-track{
-    flex:1; height: 6px; background: rgba(139,78,38,0.12); border-radius: 6px; overflow:hidden;
+    flex:1; height: 6px; background: rgba(139,78,38,0.12); border-radius: 6px; position:relative;
   }
   .awareness-fill{
     height:100%; width:0%; background: linear-gradient(90deg, var(--accent), var(--tan-dark));
     border-radius:6px; transition: width .15s ease-out;
+    box-shadow: 0 0 10px rgba(232,181,107,0.6);
   }
   .awareness-walker{
     position:absolute; left:0%; top:50%; transform:translate(-50%,-50%) scaleX(-1);
     font-size: 21px; transition: left .15s ease-out; pointer-events:none;
   }
+  .milestone{
+    position:absolute; top:50%; transform:translate(-50%,-50%) scale(.8); font-size: 12px;
+    opacity:.35; filter: grayscale(1); transition: opacity .3s ease, transform .3s ease, filter .3s ease;
+    pointer-events:none;
+  }
+  .milestone.reached{ opacity:1; filter:none; transform:translate(-50%,-50%) scale(1.4); }
+  .awareness-pct{ font-variant-numeric: tabular-nums; min-width: 32px; text-align:right; }
   .awareness-goal{ font-size: 15px; opacity:.5; transition: opacity .3s ease, transform .3s ease; }
   .awareness-goal.reached{ opacity:1; transform: scale(1.3); }
+
+  /* CLARITY OVERLAY (a página "clareia" conforme a consciência aumenta) */
+  .clarity-overlay{
+    position:fixed; inset:0; pointer-events:none; z-index:41;
+    background: radial-gradient(circle at 50% 38%, transparent 35%, rgba(43,35,32,0.4) 100%);
+    opacity:.5; transition: opacity .2s linear;
+  }
+
+  /* TOAST DE MARCOS DE CONSCIÊNCIA */
+  .consciousness-toast{
+    position:fixed; top:80px; left:50%; transform:translateX(-50%) translateY(-12px);
+    background: var(--black-coat); color:#fff; padding:12px 20px; border-radius:30px;
+    font-size:.85rem; font-weight:700; box-shadow: 0 14px 30px rgba(0,0,0,0.25);
+    z-index:200; opacity:0; transition: opacity .35s ease, transform .35s ease; pointer-events:none;
+    display:flex; align-items:center; gap:8px; max-width: 90vw; text-align:center;
+  }
+  .consciousness-toast.show{ opacity:1; transform:translateX(-50%) translateY(0); }
 
   /* NAV */
   header{
@@ -341,17 +368,63 @@
   .result-tips li{ margin-bottom: 6px; }
 
   /* GALERIA */
-  .gallery-grid{ display:grid; grid-template-columns: 1.3fr 1fr; gap: 20px; }
-  .gallery-grid .frame{ border-radius: 20px; overflow:hidden; box-shadow: 0 12px 30px rgba(43,35,32,0.12); }
-  .video-box{ background:#000; border-radius:20px; overflow:hidden; box-shadow: 0 12px 30px rgba(43,35,32,0.12); }
-  .placeholder-photo{
-    border-radius: 20px; border: 2px dashed rgba(139,78,38,0.4); background: rgba(201,138,75,0.08);
-    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px;
-    color: var(--muted); font-size:.85rem; text-align:center; padding: 20px; min-height: 150px;
+  .gallery-masonry{
+    display:grid; grid-template-columns: repeat(4, 1fr); grid-auto-rows: 140px; gap:16px;
+    grid-auto-flow: dense;
   }
-  .placeholder-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:14px; margin-top:14px; }
-  .placeholder-grid .frame{ border-radius: 16px; overflow:hidden; box-shadow: 0 10px 24px rgba(43,35,32,0.12); aspect-ratio: 1/1; }
-  .placeholder-grid .frame img{ width:100%; height:100%; object-fit:cover; }
+  .gallery-item{
+    border-radius: 20px; overflow:hidden; box-shadow: 0 12px 30px rgba(43,35,32,0.12);
+    transition: box-shadow .3s ease, transform .3s ease;
+  }
+  .gallery-item:hover{ box-shadow: 0 20px 40px rgba(43,35,32,0.2); transform: translateY(-3px); }
+  .gallery-item.span-2{ grid-column: span 2; }
+  .gallery-item.span-row-2{ grid-row: span 2; }
+  .gallery-item .video-box, .gallery-item .frame{ width:100%; height:100%; }
+  .video-box{ background:#000; }
+  .gallery-item .video-box video{ width:100%; height:100%; object-fit:cover; display:block; }
+  .gallery-photo{ position:relative; cursor:pointer; }
+  .gallery-photo img{ width:100%; height:100%; object-fit:cover; }
+  .zoom-hint{
+    position:absolute; inset:0; display:flex; align-items:center; justify-content:center;
+    font-size:1.6rem; color:#fff; background: rgba(43,35,32,0); opacity:0;
+    transition: opacity .3s ease, background .3s ease;
+  }
+  .gallery-photo:hover .zoom-hint, .gallery-photo:focus-visible .zoom-hint{
+    opacity:1; background: rgba(43,35,32,0.32);
+  }
+
+  /* LIGHTBOX */
+  .lightbox-overlay{
+    position:fixed; inset:0; background: rgba(0,0,0,0.9); z-index:320; display:none;
+    align-items:center; justify-content:center; padding: 24px; backdrop-filter: blur(3px);
+  }
+  .lightbox-overlay.active{ display:flex; animation: fadeInModal .25s ease; }
+  .lightbox-img{
+    max-width: 90vw; max-height: 82vh; border-radius: 14px; box-shadow: 0 30px 70px rgba(0,0,0,0.6);
+    animation: lightboxPop .25s ease;
+  }
+  @keyframes lightboxPop{ from{ opacity:0; transform: scale(.94); } to{ opacity:1; transform: scale(1); } }
+  .lightbox-close{
+    position:absolute; top:20px; right:20px; width:42px; height:42px; border-radius:50%;
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color:#fff;
+    font-size:1.3rem; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    transition: background .2s ease; z-index:2;
+  }
+  .lightbox-close:hover{ background: rgba(255,255,255,0.3); }
+  .lightbox-nav{
+    position:absolute; top:50%; transform:translateY(-50%); width:48px; height:48px; border-radius:50%;
+    background: rgba(255,255,255,0.12); border: 1px solid rgba(255,255,255,0.25); color:#fff;
+    font-size:1.8rem; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    transition: background .2s ease;
+  }
+  .lightbox-nav:hover{ background: rgba(255,255,255,0.28); }
+  .lightbox-prev{ left: 16px; }
+  .lightbox-next{ right: 16px; }
+  .lightbox-counter{
+    position:absolute; bottom:20px; left:50%; transform:translateX(-50%);
+    color:#fff; font-size:.82rem; font-weight:700; background: rgba(255,255,255,0.12);
+    padding:6px 14px; border-radius:20px; letter-spacing:.3px;
+  }
 
   /* PREÇO */
   .price-card{
@@ -408,6 +481,24 @@
     100%{ box-shadow: 0 10px 25px rgba(37,211,102,0.45), 0 0 0 0 rgba(37,211,102,0); }
   }
 
+  /* SCROLL PROGRESS BUTTON (voltar ao topo + nível de consciência em anel) */
+  .scroll-progress-btn{
+    position:fixed; bottom:22px; left:22px; width:54px; height:54px; border-radius:50%;
+    background:#fff; border:none; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    box-shadow: 0 10px 25px rgba(43,35,32,0.18); z-index:60;
+    opacity:0; visibility:hidden; transform: translateY(10px);
+    transition: opacity .3s ease, transform .3s ease, visibility .3s;
+  }
+  .scroll-progress-btn.show{ opacity:1; visibility:visible; transform:translateY(0); }
+  .scroll-progress-btn:hover{ transform: translateY(-3px); }
+  .progress-ring{ position:absolute; inset:0; width:54px; height:54px; transform: rotate(-90deg); }
+  .progress-ring-bg{ fill:none; stroke: rgba(139,78,38,0.12); stroke-width:3; }
+  .progress-ring-fill{
+    fill:none; stroke: var(--tan-dark); stroke-width:3; stroke-linecap:round;
+    stroke-dasharray: 119.4; stroke-dashoffset:119.4; transition: stroke-dashoffset .15s ease-out;
+  }
+  .scroll-progress-icon{ position:relative; font-size:1.2rem; color: var(--tan-dark); font-weight:800; }
+
   /* GATED CONTACT (liberado só após o quiz) */
   .gated.locked{
     background: #A99A8A !important; box-shadow: none !important; animation: none !important;
@@ -445,8 +536,11 @@
     .about-grid{ grid-template-columns: 1fr; gap: 20px; }
     .about-grid .frame, .about-grid .photo-stack{ order:-1; max-width: 280px; margin: 0 auto 20px; }
     .aware-grid{ grid-template-columns: 1fr; }
-    .gallery-grid{ grid-template-columns: 1fr; }
-    .placeholder-grid{ grid-template-columns: repeat(2,1fr); }
+    .gallery-masonry{ grid-template-columns: repeat(2,1fr); grid-auto-rows: 150px; }
+    .lightbox-nav{ width:40px; height:40px; font-size:1.4rem; }
+    .lightbox-prev{ left:6px; } .lightbox-next{ right:6px; }
+    .scroll-progress-btn{ width:46px; height:46px; bottom:16px; left:16px; }
+    .progress-ring{ width:46px; height:46px; }
     .price-card, .contact-card, .quiz-card{ padding: 28px 18px; }
     .price-value{ font-size: 2.5rem; }
     .quiz-option{ padding: 14px 16px; font-size: .9rem; }
@@ -465,19 +559,31 @@
     .float-whats{ width: 50px; height:50px; font-size:1.3rem; bottom:16px; right:16px; }
     section{ padding: 44px 16px; }
     .quiz-card{ padding: 22px 14px; }
+    .awareness-pct{ font-size:.68rem; min-width:26px; }
+    .consciousness-toast{ font-size:.78rem; padding:10px 16px; top:96px; }
+    .gallery-masonry{ grid-template-columns: 1fr; grid-auto-rows: 160px; gap:10px; }
+    .gallery-item.span-2{ grid-column: span 1; }
   }
 </style>
 </head>
 <body>
 
+<div class="clarity-overlay" id="clarityOverlay"></div>
+
 <div class="awareness-bar">
   <div class="awareness-inner">
-    <span>🧭</span>
+    <span class="awareness-icon" id="awarenessIcon">🐶</span>
     <div class="awareness-track-wrap">
-      <div class="awareness-track"><div class="awareness-fill" id="awarenessFill"></div></div>
-      <span class="awareness-walker" id="awarenessWalker">🚶</span>
+      <div class="awareness-track">
+        <div class="awareness-fill" id="awarenessFill"></div>
+        <span class="milestone" data-pct="25" title="Coluna sensível">🦴</span>
+        <span class="milestone" data-pct="50" title="12 a 16 anos de compromisso">📆</span>
+        <span class="milestone" data-pct="75" title="Custo mensal">💰</span>
+      </div>
+      <span class="awareness-walker" id="awarenessWalker">🐕</span>
     </div>
-    <span class="awareness-goal" id="awarenessGoal">🐶</span>
+    <span class="awareness-pct" id="awarenessPct">0%</span>
+    <span class="awareness-goal" id="awarenessGoal">👨‍👩‍👧‍👦</span>
   </div>
 </div>
 
@@ -507,7 +613,7 @@
     <span class="eyebrow">4 FILHOTES DISPONÍVEIS · SUZANO/SP</span>
     <span class="eyebrow" style="background:rgba(139,78,38,0.18);">🏆 COM PEDIGREE</span>
     <h1>Filhotes de <em class="shimmer-text">Dachshund</em> em busca da família certa</h1>
-    <p>Não vendemos para qualquer pessoa — buscamos famílias preparadas, responsáveis e que entendem o compromisso de cuidar de um Dachshund pela vida toda. Faça o quiz e descubra se esse é o momento certo para vocês.</p>
+    <p>Não vendemos para qualquer pessoa. Buscamos famílias preparadas, responsáveis e que entendem o compromisso de cuidar de um Dachshund pela vida toda. Faça o quiz e descubra se esse é o momento certo para vocês.</p>
     <div class="hero-buttons">
       <a class="btn btn-primary" href="#quiz">🧩 Fazer o Quiz de Compatibilidade</a>
       <a class="btn btn-secondary" href="#preco">Ver valor</a>
@@ -566,11 +672,11 @@
     <div class="reveal">
       <ul class="checklist">
         <li>Filhotes de Dachshund (Teckel), pelagem curta, cores preto e fogo</li>
-        <li><strong>Pais com pedigree</strong> — laudo disponível, foto enviada mediante solicitação</li>
-        <li>60+ dias de vida — já vacinados e vermifugados</li>
+        <li><strong>Pais com pedigree</strong>, laudo disponível, foto enviada mediante solicitação</li>
+        <li>60+ dias de vida, já vacinados e vermifugados</li>
         <li>Criados dentro de casa, acostumados com contato humano</li>
         <li>Saudáveis, ativos e socializados desde o nascimento</li>
-        <li>Localizados em Suzano/SP — visitas com agendamento prévio</li>
+        <li>Localizados em Suzano/SP, visitas com agendamento prévio</li>
         <li><strong>Entrega grátis</strong> para toda a região do Alto Tietê</li>
       </ul>
     </div>
@@ -587,30 +693,29 @@
   <div class="section-head reveal">
     <span class="eyebrow">Antes de decidir</span>
     <h2>Conheça a raça de verdade</h2>
-    <p>Um Dachshund não é só um cachorro fofo — é um compromisso de mais de uma década. Quanto mais você souber agora, melhor a decisão para você e para o filhote.</p>
+    <p>Um Dachshund não é só um cachorro fofo, é um compromisso de mais de uma década. Quanto mais você souber agora, melhor a decisão para você e para o filhote.</p>
   </div>
   <div class="aware-grid">
     <div class="aware-card tilt reveal">
       <div class="ic">🦴</div>
       <h3>Coluna sensível</h3>
-      <p>A raça tem predisposição a problemas de coluna (IVDD). Precisa evitar pular de móveis e escadas — e uma eventual cirurgia pode custar entre <strong>R$ 3.000 e R$ 8.000</strong>.</p>
+      <p>Por ser comprido e baixinho, ele merece um carinho extra com a coluna. Nada de pular do sofá, da cama ou descer escadas correndo, uma rampinha ou um colo bem gostoso resolvem o resto.</p>
     </div>
     <div class="aware-card tilt reveal reveal-delay-1">
       <div class="ic">📆</div>
       <div class="stat" data-target="16">0</div>
       <h3>Anos de compromisso</h3>
-      <p>A expectativa de vida gira entre 12 e 16 anos. É uma família nova por mais de uma década — pense na sua rotina daqui a 10 anos.</p>
+      <p>A expectativa de vida gira entre 12 e 16 anos. É uma família nova por mais de uma década, pense na sua rotina daqui a 10 anos.</p>
     </div>
     <div class="aware-card tilt reveal reveal-delay-2">
-      <div class="ic">💰</div>
-      <div class="stat">R$ 250-400</div>
-      <h3>Custo mensal médio</h3>
-      <p>Ração premium, banho e tosa, vermífugo e preventivos somam esse valor por mês — sem contar imprevistos veterinários.</p>
+      <div class="ic">😄</div>
+      <h3>Cheio de personalidade</h3>
+      <p>Esperto, teimoso e engraçado do jeito dele. Late para avisar visita, adora um cochilo enrolado no cobertor e se apega rápido à família. Mesmo pequeno, se acha o maior cão do quintal.</p>
     </div>
     <div class="aware-card tilt reveal">
       <div class="ic">🏃</div>
       <h3>Exercício moderado, sem impacto</h3>
-      <p>Precisa de passeios diários, mas sem saltos ou corridas de alto impacto — atenção redobrada em casas com escadas.</p>
+      <p>Precisa de passeios diários, mas sem saltos ou corridas de alto impacto. Atenção redobrada em casas com escadas.</p>
     </div>
     <div class="aware-card tilt reveal reveal-delay-1">
       <div class="ic">❤️</div>
@@ -624,7 +729,7 @@
     </div>
   </div>
   <div class="aware-banner reveal">
-    Buscamos famílias que já leram até aqui com atenção — isso já diz muito sobre o cuidado que vocês terão. <strong>Continue para o quiz</strong> e veja se o momento é ideal para adotar.
+    Buscamos famílias que já leram até aqui com atenção. Isso já diz muito sobre o cuidado que vocês terão. <strong>Continue para o quiz</strong> e veja se o momento é ideal para adotar.
   </div>
 </section>
 
@@ -632,7 +737,7 @@
   <div class="section-head reveal">
     <span class="eyebrow">Quiz de Compatibilidade</span>
     <h2>Vocês estão prontos para um Dachshund?</h2>
-    <p>6 perguntas rápidas para entender se esse é o momento certo — sem compromisso, só clareza.</p>
+    <p>6 perguntas rápidas para entender se esse é o momento certo, sem compromisso, só clareza.</p>
   </div>
 
   <div class="quiz-card reveal">
@@ -717,22 +822,71 @@
   <div class="section-head reveal">
     <span class="eyebrow">Galeria</span>
     <h2>Conheça um pouquinho deles</h2>
-    <p>Mais fotos e vídeos são enviados diretamente pelo WhatsApp — é só chamar!</p>
+    <p>Mais fotos e vídeos são enviados diretamente pelo WhatsApp, é só chamar! Clique em qualquer foto para ampliar.</p>
   </div>
-  <div class="gallery-grid">
-    <div class="video-box reveal">
-      <video controls poster="assets/filhote-01.jpeg">
-        <source src="assets/filhote-video.mp4" type="video/mp4">
-        Seu navegador não suporta vídeo. <a href="assets/filhote-video.mp4">Clique aqui para assistir</a>.
-      </video>
+  <div class="gallery-masonry" id="galleryMasonry">
+    <div class="gallery-item span-2 span-row-2 reveal">
+      <div class="video-box">
+        <video controls poster="assets/filhote-01.jpeg">
+          <source src="assets/filhote-video.mp4" type="video/mp4">
+          Seu navegador não suporta vídeo. <a href="assets/filhote-video.mp4">Clique aqui para assistir</a>.
+        </video>
+      </div>
     </div>
-    <div class="frame reveal reveal-delay-1"><img src="assets/filhote-03.jpeg" alt="Filhote de Dachshund olhando para cima"></div>
-  </div>
-  <div class="placeholder-grid">
-    <div class="frame reveal"><img src="assets/filhote-02.jpeg" alt="Filhote de Dachshund de perto"></div>
-    <div class="frame reveal reveal-delay-1"><img src="assets/filhote-06.jpeg" alt="Filhote de Dachshund brincando"></div>
-    <div class="frame reveal reveal-delay-2"><img src="assets/filhote-08.jpeg" alt="Filhote de Dachshund deitado de barriga para cima"></div>
-    <div class="placeholder-photo">📄<br>Foto do laudo de pedigree</div>
+    <div class="gallery-item span-2 reveal reveal-delay-1">
+      <div class="frame gallery-photo" data-full="assets/filhote-03.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
+        <img src="assets/filhote-03.jpeg" alt="Filhote de Dachshund olhando para cima">
+        <span class="zoom-hint">🔍</span>
+      </div>
+    </div>
+    <div class="gallery-item reveal reveal-delay-2">
+      <div class="frame gallery-photo" data-full="assets/filhote-02.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
+        <img src="assets/filhote-02.jpeg" alt="Filhote de Dachshund de perto">
+        <span class="zoom-hint">🔍</span>
+      </div>
+    </div>
+    <div class="gallery-item reveal reveal-delay-3">
+      <div class="frame gallery-photo" data-full="assets/filhote-06.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
+        <img src="assets/filhote-06.jpeg" alt="Filhote de Dachshund brincando">
+        <span class="zoom-hint">🔍</span>
+      </div>
+    </div>
+    <div class="gallery-item reveal reveal-delay-4">
+      <div class="frame gallery-photo" data-full="assets/filhote-08.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
+        <img src="assets/filhote-08.jpeg" alt="Filhote de Dachshund deitado de barriga para cima">
+        <span class="zoom-hint">🔍</span>
+      </div>
+    </div>
+    <div class="gallery-item span-2 reveal reveal-delay-5">
+      <div class="frame gallery-photo" data-full="assets/filhote-10.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
+        <img src="assets/filhote-10.jpeg" alt="Filhotes de Dachshund aconchegados">
+        <span class="zoom-hint">🔍</span>
+      </div>
+    </div>
+    <div class="gallery-item reveal">
+      <div class="frame gallery-photo" data-full="assets/filhote-05.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
+        <img src="assets/filhote-05.jpeg" alt="Filhote de Dachshund de barriga para cima">
+        <span class="zoom-hint">🔍</span>
+      </div>
+    </div>
+    <div class="gallery-item reveal reveal-delay-1">
+      <div class="frame gallery-photo" data-full="assets/filhote-07.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
+        <img src="assets/filhote-07.jpeg" alt="Filhotes de Dachshund juntos">
+        <span class="zoom-hint">🔍</span>
+      </div>
+    </div>
+    <div class="gallery-item reveal reveal-delay-2">
+      <div class="frame gallery-photo" data-full="assets/filhote-09.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
+        <img src="assets/filhote-09.jpeg" alt="Filhotes de Dachshund juntos">
+        <span class="zoom-hint">🔍</span>
+      </div>
+    </div>
+    <div class="gallery-item reveal reveal-delay-3">
+      <div class="frame gallery-photo" data-full="assets/filhote-04.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
+        <img src="assets/filhote-04.jpeg" alt="Filhote de Dachshund">
+        <span class="zoom-hint">🔍</span>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -746,8 +900,8 @@
     <div>Valor promocional</div>
     <span class="price-old">De R$ 2.200</span>
     <div class="price-value">R$ 1.800 <small>/ filhote</small></div>
-    <p class="price-note">Com pedigree — pais com laudo disponível para consulta. Faixa alinhada ao mercado de Dachshund com documentação na região de São Paulo, com valor promocional para agilizar a entrega aos novos lares. O valor final pode variar por filhote (cor, porte e sexo) — combine diretamente pelo WhatsApp.</p>
-    <p class="price-subnote">Lembrando: o valor do filhote é só o início. Reserve também orçamento mensal para alimentação premium e cuidados preventivos — é isso que garante uma vida longa e saudável para ele.</p>
+    <p class="price-note">Com pedigree, pais com laudo disponível para consulta. Faixa alinhada ao mercado de Dachshund com documentação na região de São Paulo, com valor promocional para agilizar a entrega aos novos lares. O valor final pode variar por filhote (cor, porte e sexo), combine diretamente pelo WhatsApp.</p>
+    <p class="price-subnote">Lembrando: o valor do filhote é só o início. Reserve também orçamento mensal para alimentação premium e cuidados preventivos. É isso que garante uma vida longa e saudável para ele.</p>
     <div class="price-includes">
       <span>✅ Pais com pedigree</span>
       <span>✅ Vacinas em dia</span>
@@ -771,8 +925,8 @@
          data-real-href="https://wa.me/5511920698756?text=Oi!%20Vi%20o%20site%20dos%20filhotes%20de%20Dachshund%20e%20tenho%20interesse!"
          data-real-text="💬 (11) 92069-8756">🔒 Complete o quiz para ver o contato</a>
     </div>
-    <p class="locked-note" id="contactLockedNote">O número só é liberado depois do <a href="#quiz" style="color:#fff;">quiz de compatibilidade</a> — é rápido, prometemos 🐾</p>
-    <div class="contact-info">📍 <strong>Suzano, SP</strong> — visitas com agendamento prévio<br>🚗 <strong>Entrega grátis</strong> para toda a região do Alto Tietê</div>
+    <p class="locked-note" id="contactLockedNote">O número só é liberado depois do <a href="#quiz" style="color:#fff;">quiz de compatibilidade</a>, é rápido, prometemos 🐾</p>
+    <div class="contact-info">📍 <strong>Suzano, SP</strong> (visitas com agendamento prévio)<br>🚗 <strong>Entrega grátis</strong> para toda a região do Alto Tietê</div>
   </div>
 </section>
 
@@ -785,10 +939,26 @@
    data-real-text="💬" data-real-title="Falar no WhatsApp"
    title="Faça o quiz para liberar o contato">🧩</a>
 
+<button class="scroll-progress-btn" id="scrollTopBtn" type="button" aria-label="Voltar ao topo">
+  <svg class="progress-ring" viewBox="0 0 44 44">
+    <circle class="progress-ring-bg" cx="22" cy="22" r="19"></circle>
+    <circle class="progress-ring-fill" id="progressRingFill" cx="22" cy="22" r="19"></circle>
+  </svg>
+  <span class="scroll-progress-icon">↑</span>
+</button>
+
 <div class="video-modal-overlay" id="videoModalOverlay">
   <div class="video-modal-box" id="videoModalBox">
     <button class="video-modal-close" id="videoModalClose" type="button" aria-label="Fechar vídeo">✕</button>
   </div>
+</div>
+
+<div class="lightbox-overlay" id="lightboxOverlay">
+  <button class="lightbox-close" id="lightboxClose" type="button" aria-label="Fechar">✕</button>
+  <button class="lightbox-nav lightbox-prev" id="lightboxPrev" type="button" aria-label="Foto anterior">‹</button>
+  <img class="lightbox-img" id="lightboxImg" src="" alt="">
+  <button class="lightbox-nav lightbox-next" id="lightboxNext" type="button" aria-label="Próxima foto">›</button>
+  <div class="lightbox-counter" id="lightboxCounter"></div>
 </div>
 
 <script>
@@ -825,7 +995,7 @@
     const closeBtn = document.getElementById('videoModalClose');
     if(!expandBtn || !overlay || !modalBox) return;
 
-    // O card do hero é só um embed do YouTube tocando em loop — não precisa de JS pra funcionar.
+    // O card do hero é só um embed do YouTube tocando em loop, não precisa de JS pra funcionar.
     // O modal cria seu próprio embed do zero toda vez que abre, e destrói ao fechar.
     let expandedFrame = null;
 
@@ -853,6 +1023,61 @@
     closeBtn.addEventListener('click', closeModal);
     overlay.addEventListener('click', (e) => { if(e.target === overlay) closeModal(); });
     document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && overlay.classList.contains('active')) closeModal(); });
+  })();
+
+  // ---- Galeria: lightbox de fotos ----
+  (function(){
+    const items = Array.from(document.querySelectorAll('.gallery-photo'));
+    const overlay = document.getElementById('lightboxOverlay');
+    const imgEl = document.getElementById('lightboxImg');
+    const counterEl = document.getElementById('lightboxCounter');
+    const closeBtn = document.getElementById('lightboxClose');
+    const prevBtn = document.getElementById('lightboxPrev');
+    const nextBtn = document.getElementById('lightboxNext');
+    if(!items.length || !overlay) return;
+    let idx = 0;
+
+    function show(i){
+      idx = (i + items.length) % items.length;
+      const el = items[idx];
+      const fullSrc = el.dataset.full || el.querySelector('img').src;
+      imgEl.src = fullSrc;
+      imgEl.alt = el.querySelector('img').alt || '';
+      counterEl.textContent = (idx + 1) + ' / ' + items.length;
+    }
+    function open(i){
+      show(i);
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function close(){
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    items.forEach((el, i) => {
+      el.addEventListener('click', () => open(i));
+      el.addEventListener('keydown', (e) => {
+        if(e.key === 'Enter' || e.key === ' '){ e.preventDefault(); open(i); }
+      });
+    });
+    closeBtn.addEventListener('click', close);
+    prevBtn.addEventListener('click', () => show(idx - 1));
+    nextBtn.addEventListener('click', () => show(idx + 1));
+    overlay.addEventListener('click', (e) => { if(e.target === overlay) close(); });
+    document.addEventListener('keydown', (e) => {
+      if(!overlay.classList.contains('active')) return;
+      if(e.key === 'Escape') close();
+      if(e.key === 'ArrowLeft') show(idx - 1);
+      if(e.key === 'ArrowRight') show(idx + 1);
+    });
+    let touchX = null;
+    overlay.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
+    overlay.addEventListener('touchend', (e) => {
+      if(touchX === null) return;
+      const dx = e.changedTouches[0].clientX - touchX;
+      if(Math.abs(dx) > 40){ dx > 0 ? show(idx - 1) : show(idx + 1); }
+      touchX = null;
+    }, { passive: true });
   })();
 
   // ---- Paws flutuantes decorativas no hero ----
@@ -899,8 +1124,6 @@
       a.classList.toggle('active-link', a.getAttribute('href') === currentId);
     });
   }
-  window.addEventListener('scroll', updateScrollspy);
-  updateScrollspy();
 
   // ---- Confete de patinhas ao aprovar no quiz ----
   function pawConfetti(){
@@ -978,28 +1201,91 @@
   }, { threshold: 0.4 });
   counters.forEach(el => cio.observe(el));
 
-  // ---- Awareness bar ----
+  // ---- "Consciência" dinâmica: barra de progresso, marcos, overlay de clareza, anel de progresso ----
   const fill = document.getElementById('awarenessFill');
   const walker = document.getElementById('awarenessWalker');
   const goal = document.getElementById('awarenessGoal');
-  function updateAwareness(){
-    const h = document.documentElement;
-    const scrollTop = h.scrollTop || document.body.scrollTop;
-    const scrollHeight = (h.scrollHeight || document.body.scrollHeight) - h.clientHeight;
-    const pct = scrollHeight > 0 ? Math.min(100, (scrollTop / scrollHeight) * 100) : 0;
-    fill.style.width = pct + '%';
-    walker.style.left = pct + '%';
-    goal.classList.toggle('reached', pct > 96);
-  }
-  window.addEventListener('scroll', updateAwareness);
-  updateAwareness();
-
-  // ---- Subtle parallax on hero photo ----
+  const pctLabel = document.getElementById('awarenessPct');
+  const clarityOverlay = document.getElementById('clarityOverlay');
+  const scrollTopBtn = document.getElementById('scrollTopBtn');
+  const progressRingFill = document.getElementById('progressRingFill');
+  const RING_CIRC = 119.4;
   const heroPhoto = document.getElementById('heroPhoto');
-  window.addEventListener('scroll', () => {
-    const y = window.scrollY;
-    if(y < 700){ heroPhoto.style.transform = 'translateY(' + Math.min(y * 0.08, 40) + 'px)'; }
-  });
+
+  const milestoneEls = Array.from(document.querySelectorAll('.milestone'));
+  milestoneEls.forEach(m => { m.style.left = m.dataset.pct + '%'; });
+  const firedMilestones = new Set();
+  const milestoneMessages = {
+    25: '🦴 Nível 1 de consciência: agora vocês já sabem da coluna sensível',
+    50: '📆 Nível 2 de consciência: 12 a 16 anos de compromisso, anotado',
+    75: '💰 Nível 3 de consciência: já pensando no custo mensal também'
+  };
+
+  function showConsciousnessToast(msg){
+    const t = document.createElement('div');
+    t.className = 'consciousness-toast';
+    t.textContent = msg;
+    document.body.appendChild(t);
+    requestAnimationFrame(() => t.classList.add('show'));
+    setTimeout(() => {
+      t.classList.remove('show');
+      setTimeout(() => t.remove(), 400);
+    }, 2600);
+  }
+
+  function walkerEmojiFor(pct){
+    if(pct >= 100) return '🐶';
+    if(pct >= 40) return '🐕';
+    return '🐾';
+  }
+
+  let ticking = false;
+  function onScroll(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(() => {
+      const h = document.documentElement;
+      const scrollTop = h.scrollTop || document.body.scrollTop;
+      const scrollHeight = (h.scrollHeight || document.body.scrollHeight) - h.clientHeight;
+      const pct = scrollHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / scrollHeight) * 100)) : 0;
+
+      fill.style.width = pct + '%';
+      walker.style.left = pct + '%';
+      const nextEmoji = walkerEmojiFor(pct);
+      if(walker.textContent !== nextEmoji) walker.textContent = nextEmoji;
+      goal.classList.toggle('reached', pct > 96);
+      if(pctLabel) pctLabel.textContent = Math.round(pct) + '%';
+
+      milestoneEls.forEach(m => {
+        const target = parseFloat(m.dataset.pct);
+        const reached = pct >= target;
+        m.classList.toggle('reached', reached);
+        if(reached && !firedMilestones.has(target)){
+          firedMilestones.add(target);
+          if(milestoneMessages[target]) showConsciousnessToast(milestoneMessages[target]);
+        }
+      });
+
+      if(clarityOverlay) clarityOverlay.style.opacity = (0.5 * (1 - pct / 100)).toFixed(3);
+
+      if(scrollTopBtn) scrollTopBtn.classList.toggle('show', scrollTop > 420);
+      if(progressRingFill) progressRingFill.style.strokeDashoffset = (RING_CIRC - (RING_CIRC * pct / 100)).toFixed(2);
+
+      updateScrollspy();
+
+      if(heroPhoto && scrollTop < 700){
+        heroPhoto.style.transform = 'translateY(' + Math.min(scrollTop * 0.08, 40) + 'px)';
+      }
+
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, { passive: true });
+  onScroll();
+
+  if(scrollTopBtn){
+    scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
 
   // ---- Quiz logic ----
   const questions = Array.from(document.querySelectorAll('.quiz-q'));
@@ -1098,12 +1384,12 @@
     } else if(pct >= 50){
       color = 'var(--warn)'; emoji.textContent = '🤔';
       title.textContent = 'Bom potencial, mas ainda não aprovado';
-      desc.textContent = 'Vocês têm uma boa base, mas o perfil ainda não atingiu o nível que buscamos — principalmente em tempo disponível ou reserva para emergências veterinárias.';
+      desc.textContent = 'Vocês têm uma boa base, mas o perfil ainda não atingiu o nível que buscamos, principalmente em tempo disponível ou reserva para emergências veterinárias.';
       tipsList = ['Monte uma reserva financeira para imprevistos de saúde', 'Ajuste a rotina para garantir passeios diários', 'Adapte o ambiente para proteger a coluna do cão'];
     } else {
       color = 'var(--info)'; emoji.textContent = '📚';
       title.textContent = 'Ainda não é o momento ideal';
-      desc.textContent = 'Sem problema — é melhor descobrir isso agora do que depois. Um Dachshund merece tempo, estrutura e planejamento financeiro. Use esse tempo para se preparar.';
+      desc.textContent = 'Sem problema, é melhor descobrir isso agora do que depois. Um Dachshund merece tempo, estrutura e planejamento financeiro. Use esse tempo para se preparar.';
       tipsList = ['Pesquise mais sobre a saúde da coluna e cuidados da raça', 'Planeje uma reserva financeira antes de adotar', 'Reavalie sua rotina diária de tempo disponível'];
     }
 
@@ -1120,7 +1406,7 @@
       cta.href = waLinkWithMsg(msg);
       cta.style.display = 'inline-flex';
       retryBtn.style.display = 'none';
-      attemptsNote.textContent = '✅ Quiz aprovado — o contato foi liberado em todo o site.';
+      attemptsNote.textContent = '✅ Quiz aprovado! O contato foi liberado em todo o site.';
       pawConfetti();
     } else {
       let attempts = parseInt(localStorage.getItem(QUIZ_ATTEMPTS_KEY) || '0', 10) + 1;
@@ -1128,10 +1414,10 @@
       cta.style.display = 'none';
       if(attempts < MAX_ATTEMPTS){
         retryBtn.style.display = 'inline-flex';
-        attemptsNote.textContent = 'Tentativa ' + attempts + ' de ' + MAX_ATTEMPTS + ' — o contato só é liberado com o perfil "alto compromisso". Você pode tentar novamente.';
+        attemptsNote.textContent = 'Tentativa ' + attempts + ' de ' + MAX_ATTEMPTS + '. O contato só é liberado com o perfil "alto compromisso". Você pode tentar novamente.';
       } else {
         retryBtn.style.display = 'none';
-        attemptsNote.textContent = 'Você atingiu o limite de ' + MAX_ATTEMPTS + ' tentativas. Obrigado por dedicar esse tempo — pense com calma antes de considerar adotar no futuro.';
+        attemptsNote.textContent = 'Você atingiu o limite de ' + MAX_ATTEMPTS + ' tentativas. Obrigado por dedicar esse tempo. Pense com calma antes de considerar adotar no futuro.';
       }
     }
   }
