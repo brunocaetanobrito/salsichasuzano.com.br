@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Filhotes de Dachshund | Suzano, SP</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@600;700;800&family=Nunito:wght@400;600;700;800&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg: #FBF3E7;
+    --card: #FFFFFF;
+    --tan: #C98A4B;
+    --tan-dark: #8B4E26;
+    --black-coat: #2B2320;
+    --accent: #E8B56B;
+    --whatsapp: #25D366;
+    --text: #3A2E27;
+    --muted: #7A6A5D;
+    --ok: #3C8A54;
+    --warn: #C97A2B;
+    --info: #E85A4F;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{ scroll-behavior: smooth; }
+  body{
+    font-family: 'Nunito', 'Segoe UI', system-ui, -apple-system, Roboto, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    position: relative;
+  }
+  h1, h2, h3, h4, .logo, .price-value, .result-title{ font-family: 'Quicksand', 'Segoe UI', sans-serif; }
+  img, video{ max-width:100%; display:block; }
+
+  /* IMAGE ZOOM ON HOVER */
+  .frame{ overflow:hidden; }
+  .frame img{ transition: transform .5s ease; }
+  .frame:hover img{ transform: scale(1.08); }
+
+  /* BUTTON SHINE SWEEP */
+  .btn{ position:relative; overflow:hidden; }
+  .btn::before{
+    content:''; position:absolute; top:0; left:-75%; width:50%; height:100%;
+    background: linear-gradient(120deg, transparent, rgba(255,255,255,0.45), transparent);
+    transform: skewX(-20deg); transition: left .6s ease;
+  }
+  .btn:hover::before{ left: 125%; }
+
+  /* SECTION WAVE DIVIDERS */
+  .wave-divider{ display:block; width:100%; line-height:0; margin-top:-1px; }
+  .wave-divider svg{ width:100%; height:60px; display:block; }
+
+  /* GRADIENT SHIMMER TEXT */
+  .shimmer-text{
+    background: linear-gradient(90deg, var(--tan-dark), var(--accent), var(--tan-dark));
+    background-size: 200% auto;
+    -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent;
+    animation: shimmerText 4s linear infinite;
+  }
+  @keyframes shimmerText{ to{ background-position: -200% center; } }
+
+  /* FLOATING PAWS DECORATION */
+  .paw-field{ position:absolute; inset:0; overflow:hidden; pointer-events:none; z-index:0; }
+  .paw-field span{
+    position:absolute; opacity:.16; font-size: 1.6rem; animation: pawFloat linear infinite;
+  }
+  @keyframes pawFloat{
+    0%{ transform: translateY(0) rotate(0deg); opacity:0; }
+    10%{ opacity:.18; }
+    90%{ opacity:.18; }
+    100%{ transform: translateY(-140px) rotate(25deg); opacity:0; }
+  }
+
+  /* TILT CARDS */
+  .tilt{ transition: transform .15s ease, box-shadow .15s ease; transform-style: preserve-3d; }
+
+  /* NAV ACTIVE LINK */
+  nav a.active-link{ color: var(--tan-dark); position:relative; }
+  nav a.active-link::after{
+    content:''; position:absolute; left:0; right:0; bottom:-6px; height:2px; background: var(--tan-dark); border-radius:2px;
+  }
+
+  /* CONFETTI PAWS */
+  .confetti-paw{
+    position:fixed; top:-40px; font-size:1.4rem; z-index:999; pointer-events:none;
+    animation: confettiFall 2.6s ease-in forwards;
+  }
+  @keyframes confettiFall{
+    to{ transform: translateY(100vh) rotate(360deg); opacity:0; }
+  }
+
+  /* REVEAL ON SCROLL */
+  .reveal{ opacity:0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+  .reveal.in-view{ opacity:1; transform:none; }
+  .reveal-delay-1.in-view{ transition-delay: .1s; }
+  .reveal-delay-2.in-view{ transition-delay: .2s; }
+  .reveal-delay-3.in-view{ transition-delay: .3s; }
+  .reveal-delay-4.in-view{ transition-delay: .4s; }
+  .reveal-delay-5.in-view{ transition-delay: .5s; }
+
+  /* AWARENESS BAR */
+  .awareness-bar{
+    position: sticky; top: 0; z-index: 55; background: #fff;
+    border-bottom: 1px solid rgba(139,78,38,0.12);
+  }
+  .awareness-inner{
+    max-width: 1100px; margin:0 auto; padding: 8px 24px;
+    display:flex; align-items:center; gap: 14px; font-size:.76rem; font-weight:700; color: var(--tan-dark);
+  }
+  .awareness-track-wrap{ position:relative; flex:1; display:flex; align-items:center; }
+  .awareness-track{
+    flex:1; height: 6px; background: rgba(139,78,38,0.12); border-radius: 6px; overflow:hidden;
+  }
+  .awareness-fill{
+    height:100%; width:0%; background: linear-gradient(90deg, var(--accent), var(--tan-dark));
+    border-radius:6px; transition: width .15s ease-out;
+  }
+  .awareness-walker{
+    position:absolute; left:0%; top:50%; transform:translate(-50%,-50%) scaleX(-1);
+    font-size: 21px; transition: left .15s ease-out; pointer-events:none;
+  }
+  .awareness-goal{ font-size: 15px; opacity:.5; transition: opacity .3s ease, transform .3s ease; }
+  .awareness-goal.reached{ opacity:1; transform: scale(1.3); }
+
+  /* NAV */
+  header{
+    position: sticky; top:34px; z-index: 50;
+    background: rgba(251,243,231,0.92);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(139,78,38,0.12);
+  }
+  .nav-wrap{
+    max-width: 1100px; margin:0 auto; padding: 14px 24px;
+    display:flex; align-items:center; justify-content:space-between;
+  }
+  .logo{ font-weight:800; font-size:1.15rem; color: var(--tan-dark); letter-spacing:.3px; }
+  .logo span{ color: var(--black-coat); }
+  nav a{
+    color: var(--text); text-decoration:none; font-size:.92rem; margin-left:22px; font-weight:600;
+  }
+  nav a:hover{ color: var(--tan-dark); }
+  .nav-cta{
+    background: var(--whatsapp); color:#fff !important; padding:9px 18px; border-radius:30px;
+  }
+
+  /* MENU SANDUÍCHE (mobile) */
+  .hamburger{
+    display:none; flex-direction:column; justify-content:center; align-items:center; gap:5px;
+    width:40px; height:40px; background:none; border:none; cursor:pointer; padding:0;
+  }
+  .hamburger span{
+    display:block; width:24px; height:3px; background: var(--tan-dark); border-radius:3px;
+    transition: transform .25s ease, opacity .25s ease;
+  }
+  .hamburger.open span:nth-child(1){ transform: translateY(8px) rotate(45deg); }
+  .hamburger.open span:nth-child(2){ opacity:0; }
+  .hamburger.open span:nth-child(3){ transform: translateY(-8px) rotate(-45deg); }
+  .nav-overlay{
+    display:none; position:fixed; inset:0; background:rgba(43,35,32,0.35); z-index:44;
+  }
+  .nav-overlay.show{ display:block; }
+
+  /* HERO */
+  .hero{
+    max-width: 1100px; margin: 0 auto; padding: 48px 24px 20px; position:relative;
+    display:grid; grid-template-columns: 1.05fr 0.95fr; gap: 40px; align-items:center;
+  }
+  .hero-text, .hero-photo{ position:relative; z-index:1; }
+  .hero-text .eyebrow{
+    display:inline-block; background: rgba(201,138,75,0.15); color: var(--tan-dark);
+    padding: 6px 14px; border-radius: 20px; font-size: .8rem; font-weight:700; letter-spacing:.4px;
+    margin-bottom: 16px;
+  }
+  .hero-text h1{
+    font-size: 2.5rem; line-height:1.15; color: var(--black-coat); margin-bottom: 16px;
+  }
+  .hero-text h1 em{ color: var(--tan-dark); font-style:normal; }
+  .hero-text p{ font-size: 1.05rem; color: var(--muted); max-width: 460px; margin-bottom: 26px; }
+  .hero-buttons{ display:flex; gap:14px; flex-wrap:wrap; }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px; padding: 14px 26px; border-radius: 30px;
+    font-weight:700; text-decoration:none; font-size:.98rem; transition: transform .15s ease, box-shadow .15s ease;
+    border: none; cursor: pointer; font-family: inherit;
+  }
+  .btn-primary{ background: var(--whatsapp); color:#fff; box-shadow: 0 8px 20px rgba(37,211,102,0.35); }
+  .btn-primary:hover{ transform: translateY(-2px); }
+  .btn-secondary{ background: transparent; color: var(--tan-dark); border: 2px solid var(--tan-dark); }
+  .btn-secondary:hover{ background: var(--tan-dark); color:#fff; transform: translateY(-2px); }
+
+  .hero-photo{ position:relative; will-change: transform; }
+  .photo-stack .badge{
+    position:absolute; bottom:-16px; left:50%; transform:translateX(-50%); background: var(--tan-dark); color:#fff;
+    padding: 10px 16px; border-radius: 16px; font-weight:800; font-size:.82rem; white-space:nowrap;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2); z-index: 5;
+  }
+
+  /* PILHA DE FOTOS ESTILO POLAROID */
+  .photo-stack{ position:relative; width:100%; max-width: 380px; margin: 0 auto; aspect-ratio: 1 / 1.08; }
+  .about-photo-stack{ max-width: 340px; }
+  .photo-card{
+    position:absolute; left:50%; top:50%; width:76%; aspect-ratio: 1 / 1;
+    border-radius: 18px; overflow:hidden; border: 8px solid #fff; background:#fff;
+    box-shadow: 0 16px 34px rgba(43,35,32,0.2);
+    transition: transform .4s cubic-bezier(.2,.8,.2,1), box-shadow .4s ease;
+  }
+  .photo-card img{ width:100%; height:100%; object-fit:cover; display:block; }
+  .photo-card.card-1{ transform: translate(-50%,-50%) rotate(-10deg) translate(-18px, 16px); z-index:1; }
+  .photo-card.card-2{ transform: translate(-50%,-50%) rotate(8deg) translate(20px, -8px); z-index:2; }
+  .photo-card.card-3{ transform: translate(-50%,-50%) rotate(-2deg); z-index:3; }
+  .photo-stack:hover .card-1{ transform: translate(-50%,-50%) rotate(-17deg) translate(-50px, 26px); box-shadow: 0 20px 36px rgba(43,35,32,0.22); }
+  .photo-stack:hover .card-2{ transform: translate(-50%,-50%) rotate(14deg) translate(46px, -20px); box-shadow: 0 20px 36px rgba(43,35,32,0.22); }
+  .photo-stack:hover .card-3{ transform: translate(-50%,-50%) rotate(-2deg) translateY(-10px) scale(1.03); box-shadow: 0 26px 50px rgba(43,35,32,0.3); }
+
+  /* CARD DE VÍDEO EM DESTAQUE NO HERO (embed do YouTube) */
+  .video-card iframe{ width:100%; height:100%; border:0; display:block; pointer-events:none; }
+  .video-card .play-tag{
+    position:absolute; top:10px; left:10px; background: rgba(0,0,0,0.55); color:#fff;
+    font-size:.68rem; font-weight:800; padding:4px 10px; border-radius:20px; letter-spacing:.3px;
+    display:flex; align-items:center; gap:4px; pointer-events:none; z-index:3;
+  }
+  .video-click-layer{
+    position:absolute; inset:0; background:transparent; border:none; padding:0; margin:0;
+    cursor:pointer; z-index:2;
+  }
+  .expand-btn{
+    position:absolute; bottom:10px; right:10px; width:34px; height:34px; border-radius:50%;
+    background: rgba(0,0,0,0.55); color:#fff; border:2px solid rgba(255,255,255,0.7);
+    display:flex; align-items:center; justify-content:center; font-size:1rem;
+    pointer-events:none; z-index:3;
+  }
+
+  /* MODAL DE VÍDEO */
+  .video-modal-overlay{
+    position:fixed; inset:0; background: rgba(0,0,0,0.88); z-index:300;
+    display:none; align-items:center; justify-content:center; padding: 24px;
+    backdrop-filter: blur(2px);
+  }
+  .video-modal-overlay.active{ display:flex; animation: fadeInModal .25s ease; }
+  @keyframes fadeInModal{ from{ opacity:0; } to{ opacity:1; } }
+  .video-modal-box{ position:relative; width:100%; max-width: 380px; }
+  .video-modal-box iframe{
+    width:100%; aspect-ratio: 9 / 16; max-height:82vh; border:0; border-radius:18px; background:#000; display:block;
+    box-shadow: 0 30px 70px rgba(0,0,0,0.6);
+  }
+  .video-modal-close{
+    position:absolute; top:-46px; right:0; width:38px; height:38px; border-radius:50%;
+    background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.3); color:#fff;
+    font-size:1.2rem; cursor:pointer; display:flex; align-items:center; justify-content:center;
+    transition: background .2s ease;
+  }
+  .video-modal-close:hover{ background: rgba(255,255,255,0.3); }
+  .photo-card.placeholder-card{
+    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:6px;
+    color: var(--muted); font-size:.76rem; font-weight:700; text-align:center; padding:10px;
+    background: rgba(201,138,75,0.1); border: 2px dashed rgba(139,78,38,0.35);
+  }
+
+  /* STRIP */
+  .info-strip{
+    max-width: 1100px; margin: 60px auto 0; padding: 0 24px;
+    display:grid; grid-template-columns: repeat(5, 1fr); gap: 18px;
+  }
+  .info-card{
+    background: var(--card); border-radius: 18px; padding: 22px 18px; text-align:center;
+    box-shadow: 0 8px 24px rgba(43,35,32,0.06);
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .info-card:hover{ transform: translateY(-6px); box-shadow: 0 16px 32px rgba(43,35,32,0.12); }
+  .info-card .ic{ font-size: 1.8rem; margin-bottom:8px; }
+  .info-card h4{ font-size: .95rem; color: var(--black-coat); margin-bottom:4px; }
+  .info-card p{ font-size: .82rem; color: var(--muted); }
+
+  /* SECTION SHARED */
+  section{ max-width: 1100px; margin: 0 auto; padding: 80px 24px; }
+  .section-head{ text-align:center; max-width: 640px; margin: 0 auto 44px; }
+  .section-head .eyebrow{
+    color: var(--tan-dark); font-weight:800; font-size:.82rem; letter-spacing:1.5px; text-transform:uppercase;
+  }
+  .section-head h2{ font-size: 2rem; color: var(--black-coat); margin-top:10px; }
+  .section-head p{ color: var(--muted); margin-top: 12px; }
+
+  /* SOBRE */
+  .about-grid{ display:grid; grid-template-columns: 1fr 1fr; gap: 44px; align-items:center; }
+  .about-grid .frame{ border-radius: 22px; overflow:hidden; box-shadow: 0 16px 36px rgba(43,35,32,0.15); }
+  .checklist{ list-style:none; margin-top: 20px; }
+  .checklist li{ display:flex; gap:12px; margin-bottom:14px; font-size: .98rem; color: var(--text); }
+  .checklist li::before{ content:"🐾"; }
+
+  /* CONSCIÊNCIA / EDUCAÇÃO */
+  .aware-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+  .aware-card{
+    background:#fff; border-radius: 20px; padding: 28px 24px; box-shadow: 0 10px 26px rgba(43,35,32,0.08);
+    transition: transform .2s ease, box-shadow .2s ease; border-top: 4px solid var(--accent);
+  }
+  .aware-card:hover{ transform: translateY(-6px); box-shadow: 0 18px 36px rgba(43,35,32,0.14); }
+  .aware-card .ic{ font-size: 2rem; margin-bottom: 12px; }
+  .aware-card h3{ font-size: 1.05rem; color: var(--black-coat); margin-bottom: 8px; }
+  .aware-card p{ font-size: .88rem; color: var(--muted); }
+  .aware-card .stat{ font-size: 1.6rem; font-weight:800; color: var(--tan-dark); }
+  .aware-banner{
+    margin-top: 30px; background: var(--black-coat); color: #F4E9DC; border-radius: 20px;
+    padding: 26px 30px; text-align:center; font-size: .95rem;
+  }
+  .aware-banner strong{ color: #fff; }
+
+  /* QUIZ */
+  .quiz-card{
+    background:#fff; border-radius: 28px; padding: 44px; box-shadow: 0 20px 50px rgba(43,35,32,0.12);
+    border: 1px solid rgba(139,78,38,0.08);
+  }
+  .quiz-progress{ display:flex; gap:6px; margin-bottom: 30px; }
+  .quiz-dot{ flex:1; height:6px; border-radius:6px; background: rgba(139,78,38,0.12); transition: background .2s ease; }
+  .quiz-dot.done{ background: var(--tan-dark); }
+  .quiz-q{ display:none; }
+  .quiz-q.active{ display:block; }
+  .quiz-q h3{ font-size: 1.2rem; color: var(--black-coat); margin-bottom: 18px; }
+  .quiz-options{ display:grid; gap: 12px; }
+  .quiz-option{
+    display:block; padding: 16px 20px; border-radius: 14px; border: 2px solid rgba(139,78,38,0.15);
+    cursor:pointer; font-size: .95rem; transition: all .15s ease; background:#FFFBF5;
+  }
+  .quiz-option:hover{ border-color: var(--tan); background: #FFF3E1; }
+  .quiz-option.selected{ border-color: var(--tan-dark); background: rgba(139,78,38,0.1); font-weight:700; }
+  .quiz-nav{ display:flex; justify-content:space-between; margin-top: 28px; }
+  .quiz-nav .btn-secondary[disabled]{ opacity:.4; pointer-events:none; }
+  .quiz-result{ display:none; text-align:center; }
+  .quiz-result.active{ display:block; animation: popIn .5s ease; }
+  @keyframes popIn{ from{ opacity:0; transform: scale(.9);} to{ opacity:1; transform:scale(1);} }
+  .result-emoji{ font-size: 3.4rem; margin-bottom: 10px; }
+  .result-title{ font-size: 1.5rem; color: var(--black-coat); margin-bottom: 10px; }
+  .result-desc{ color: var(--muted); max-width: 480px; margin: 0 auto 24px; font-size:.95rem; }
+  .result-meter{
+    max-width: 340px; margin: 0 auto 26px; height: 14px; border-radius: 20px; background: rgba(139,78,38,0.1);
+    overflow:hidden;
+  }
+  .result-meter-fill{ height:100%; border-radius:20px; width:0%; transition: width 1.1s ease; }
+  .result-tips{ text-align:left; max-width: 440px; margin: 0 auto 24px; font-size:.88rem; color: var(--muted); }
+  .result-tips li{ margin-bottom: 6px; }
+
+  /* GALERIA */
+  .gallery-grid{ display:grid; grid-template-columns: 1.3fr 1fr; gap: 20px; }
+  .gallery-grid .frame{ border-radius: 20px; overflow:hidden; box-shadow: 0 12px 30px rgba(43,35,32,0.12); }
+  .video-box{ background:#000; border-radius:20px; overflow:hidden; box-shadow: 0 12px 30px rgba(43,35,32,0.12); }
+  .placeholder-photo{
+    border-radius: 20px; border: 2px dashed rgba(139,78,38,0.4); background: rgba(201,138,75,0.08);
+    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:8px;
+    color: var(--muted); font-size:.85rem; text-align:center; padding: 20px; min-height: 150px;
+  }
+  .placeholder-grid{ display:grid; grid-template-columns: repeat(4,1fr); gap:14px; margin-top:14px; }
+  .placeholder-grid .frame{ border-radius: 16px; overflow:hidden; box-shadow: 0 10px 24px rgba(43,35,32,0.12); aspect-ratio: 1/1; }
+  .placeholder-grid .frame img{ width:100%; height:100%; object-fit:cover; }
+
+  /* PREÇO */
+  .price-card{
+    background: linear-gradient(135deg, #FFF7EC, #FCE9CF);
+    border-radius: 28px; padding: 48px; text-align:center;
+    box-shadow: 0 20px 50px rgba(139,78,38,0.15); border: 1px solid rgba(139,78,38,0.1);
+  }
+  .price-value{ font-size: 3.2rem; font-weight: 800; color: var(--tan-dark); margin: 10px 0 4px; }
+  .price-value small{ font-size: 1.1rem; font-weight:700; color: var(--muted); }
+  .price-old{
+    text-decoration: line-through; color: var(--muted); font-size: 1.4rem; font-weight:700;
+    display:block; margin-top: 6px;
+  }
+  .price-badge{
+    display:inline-block; background: #E85A4F; color:#fff; font-size:.78rem; font-weight:800;
+    padding: 5px 14px; border-radius: 20px; margin-bottom: 10px; letter-spacing:.3px;
+  }
+  .price-note{ color: var(--muted); font-size: .92rem; max-width: 540px; margin: 14px auto 12px; }
+  .price-subnote{ color: var(--muted); font-size: .82rem; max-width: 480px; margin: 0 auto 26px; font-style: italic; }
+  .price-includes{
+    display:flex; flex-wrap:wrap; gap:12px; justify-content:center; margin-bottom: 30px;
+  }
+  .price-includes span{
+    background:#fff; padding: 8px 16px; border-radius: 20px; font-size: .85rem; font-weight:600; color: var(--tan-dark);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+  }
+
+  /* CONTATO */
+  .contact-card{
+    background: var(--black-coat); color: #F4E9DC; border-radius: 28px; padding: 56px;
+    text-align:center;
+  }
+  .contact-card h2{ font-size: 2rem; margin-bottom: 12px; }
+  .contact-card p{ color: #C9B8A8; max-width: 480px; margin: 0 auto 30px; }
+  .contact-row{ display:flex; gap:16px; justify-content:center; flex-wrap:wrap; }
+  .contact-row .btn-primary{ font-size: 1.05rem; padding: 16px 32px; }
+  .contact-info{ margin-top: 26px; font-size:.9rem; color:#C9B8A8; }
+  .contact-info strong{ color:#fff; }
+
+  footer{
+    text-align:center; padding: 30px 24px 40px; color: var(--muted); font-size:.82rem;
+  }
+
+  /* FLOAT WHATS */
+  .float-whats{
+    position:fixed; bottom: 22px; right: 22px; background: var(--whatsapp); color:#fff;
+    width:58px; height:58px; border-radius:50%; display:flex; align-items:center; justify-content:center;
+    font-size:1.6rem; text-decoration:none; box-shadow: 0 10px 25px rgba(37,211,102,0.45); z-index:60;
+    animation: pulse 2.4s infinite;
+  }
+  @keyframes pulse{
+    0%{ box-shadow: 0 10px 25px rgba(37,211,102,0.45), 0 0 0 0 rgba(37,211,102,0.5); }
+    70%{ box-shadow: 0 10px 25px rgba(37,211,102,0.45), 0 0 0 16px rgba(37,211,102,0); }
+    100%{ box-shadow: 0 10px 25px rgba(37,211,102,0.45), 0 0 0 0 rgba(37,211,102,0); }
+  }
+
+  /* GATED CONTACT (liberado só após o quiz) */
+  .gated.locked{
+    background: #A99A8A !important; box-shadow: none !important; animation: none !important;
+  }
+  .gated.locked:hover{ background: #93856F !important; }
+  .locked-note{
+    display:none; color: var(--muted); font-size: .82rem; margin-top: 10px;
+  }
+  .locked-note.show{ display:block; }
+
+  @media (max-width: 860px){
+    header{ top: 46px; }
+    .hamburger{ display:flex; }
+    nav{
+      display:flex; flex-direction:column; align-items:stretch; gap:0;
+      position:fixed; top:80px; left:16px; right:16px; z-index:45;
+      background:#fff; border-radius:18px; padding:8px 18px;
+      box-shadow: 0 20px 45px rgba(43,35,32,0.22);
+      transform: translateY(-14px); opacity:0; visibility:hidden; pointer-events:none;
+      transition: transform .25s ease, opacity .25s ease, visibility .25s;
+    }
+    nav.open{ transform: translateY(0); opacity:1; visibility:visible; pointer-events:auto; }
+    nav a{
+      margin-left:0; padding:14px 4px; font-size:1rem; white-space:normal;
+      border-bottom: 1px solid rgba(139,78,38,0.1);
+    }
+    nav a:last-of-type{ border-bottom:none; }
+    nav a.nav-cta{ margin: 12px 0 8px; text-align:center; padding:12px; }
+    .hero{ grid-template-columns: 1fr; padding-top: 30px; }
+    .hero-text h1{ font-size: 1.9rem; }
+    .hero-text p{ max-width: 100%; }
+    .hero-photo{ order:-1; margin-bottom: 8px; }
+    .photo-stack{ max-width: 280px; }
+    .info-strip{ grid-template-columns: repeat(2,1fr); }
+    .about-grid{ grid-template-columns: 1fr; gap: 20px; }
+    .about-grid .frame, .about-grid .photo-stack{ order:-1; max-width: 280px; margin: 0 auto 20px; }
+    .aware-grid{ grid-template-columns: 1fr; }
+    .gallery-grid{ grid-template-columns: 1fr; }
+    .placeholder-grid{ grid-template-columns: repeat(2,1fr); }
+    .price-card, .contact-card, .quiz-card{ padding: 28px 18px; }
+    .price-value{ font-size: 2.5rem; }
+    .quiz-option{ padding: 14px 16px; font-size: .9rem; }
+    section{ padding: 56px 20px; }
+    .awareness-inner{ padding: 8px 16px; gap: 8px; }
+    .awareness-label{ min-width: unset; font-size:.68rem; }
+    .contact-card h2{ font-size: 1.5rem; }
+  }
+
+  @media (max-width: 480px){
+    .hero-text h1{ font-size: 1.6rem; }
+    .price-value{ font-size: 2.1rem; }
+    .price-value small{ display:block; }
+    .btn{ padding: 12px 20px; font-size: .9rem; }
+    .nav-cta{ padding: 8px 14px; font-size: .82rem; }
+    .float-whats{ width: 50px; height:50px; font-size:1.3rem; bottom:16px; right:16px; }
+    section{ padding: 44px 16px; }
+    .quiz-card{ padding: 22px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="awareness-bar">
+  <div class="awareness-inner">
+    <span>🧭</span>
+    <div class="awareness-track-wrap">
+      <div class="awareness-track"><div class="awareness-fill" id="awarenessFill"></div></div>
+      <span class="awareness-walker" id="awarenessWalker">🚶</span>
+    </div>
+    <span class="awareness-goal" id="awarenessGoal">🐶</span>
+  </div>
+</div>
+
+<header>
+  <div class="nav-wrap">
+    <div class="logo">🐾 Salsicha<span>Suzano</span></div>
+    <button class="hamburger" id="hamburgerBtn" type="button" aria-label="Abrir menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+    <nav id="mainNav">
+      <a href="#sobre">Sobre</a>
+      <a href="#consciencia">Conheça a raça</a>
+      <a href="#galeria">Galeria</a>
+      <a href="#quiz">Quiz</a>
+      <a href="#preco">Valor</a>
+      <a href="#contato">Contato</a>
+      <a href="#quiz" class="nav-cta gated" id="navCta"
+         data-real-href="#contato" data-real-text="Falar no WhatsApp">🔒 Fazer quiz</a>
+    </nav>
+  </div>
+</header>
+<div class="nav-overlay" id="navOverlay"></div>
+
+<div class="hero">
+  <div class="paw-field" id="pawField"></div>
+  <div class="hero-text">
+    <span class="eyebrow">4 FILHOTES DISPONÍVEIS · SUZANO/SP</span>
+    <span class="eyebrow" style="background:rgba(139,78,38,0.18);">🏆 COM PEDIGREE</span>
+    <h1>Filhotes de <em class="shimmer-text">Dachshund</em> em busca da família certa</h1>
+    <p>Não vendemos para qualquer pessoa — buscamos famílias preparadas, responsáveis e que entendem o compromisso de cuidar de um Dachshund pela vida toda. Faça o quiz e descubra se esse é o momento certo para vocês.</p>
+    <div class="hero-buttons">
+      <a class="btn btn-primary" href="#quiz">🧩 Fazer o Quiz de Compatibilidade</a>
+      <a class="btn btn-secondary" href="#preco">Ver valor</a>
+    </div>
+  </div>
+  <div class="hero-photo" id="heroPhoto">
+    <div class="photo-stack">
+      <div class="photo-card card-1"><img src="assets/filhote-01.jpeg" alt="Filhote de Dachshund dormindo"></div>
+      <div class="photo-card card-2"><img src="assets/filhote-09.jpeg" alt="Filhotes de Dachshund juntos"></div>
+      <div class="photo-card card-3 video-card" id="videoCardHome">
+        <img src="assets/filhote-04.jpeg" alt="Filhote de Dachshund - capa do vídeo">
+        <span class="play-tag">▶ vídeo</span>
+        <button class="video-click-layer" id="expandVideoBtn" type="button" aria-label="Assistir vídeo"></button>
+        <span class="expand-btn">▶</span>
+      </div>
+      <!-- vídeo local: mais confiável que embed do YouTube quando o site é aberto direto do computador (file://) -->
+      <div class="badge">🐶 60+ dias · Vacinado &amp; vermifugado</div>
+    </div>
+  </div>
+</div>
+
+<div class="info-strip">
+  <div class="info-card reveal">
+    <div class="ic">🐕</div>
+    <h4>4 filhotes</h4>
+    <p>Disponíveis agora</p>
+  </div>
+  <div class="info-card reveal reveal-delay-1">
+    <div class="ic">🏆</div>
+    <h4>Com pedigree</h4>
+    <p>Pais com laudo</p>
+  </div>
+  <div class="info-card reveal reveal-delay-2">
+    <div class="ic">💉</div>
+    <h4>Vacinados</h4>
+    <p>e vermifugados</p>
+  </div>
+  <div class="info-card reveal reveal-delay-3">
+    <div class="ic">📅</div>
+    <h4>60+ dias</h4>
+    <p>Prontos para o novo lar</p>
+  </div>
+  <div class="info-card reveal reveal-delay-4">
+    <div class="ic">📍</div>
+    <h4>Suzano, SP</h4>
+    <p>Entrega no Alto Tietê</p>
+  </div>
+</div>
+
+<section id="sobre">
+  <div class="section-head reveal">
+    <span class="eyebrow">Sobre a ninhada</span>
+    <h2>Criados com carinho, prontos para amar</h2>
+  </div>
+  <div class="about-grid">
+    <div class="reveal">
+      <ul class="checklist">
+        <li>Filhotes de Dachshund (Teckel), pelagem curta, cores preto e fogo</li>
+        <li><strong>Pais com pedigree</strong> — laudo disponível, foto enviada mediante solicitação</li>
+        <li>60+ dias de vida — já vacinados e vermifugados</li>
+        <li>Criados dentro de casa, acostumados com contato humano</li>
+        <li>Saudáveis, ativos e socializados desde o nascimento</li>
+        <li>Localizados em Suzano/SP — visitas com agendamento prévio</li>
+        <li><strong>Entrega grátis</strong> para toda a região do Alto Tietê</li>
+      </ul>
+    </div>
+    <div class="photo-stack about-photo-stack reveal reveal-delay-2">
+      <div class="photo-card card-1"><img src="assets/filhote-05.jpeg" alt="Filhote de Dachshund de barriga para cima"></div>
+      <div class="photo-card card-2"><img src="assets/filhote-10.jpeg" alt="Filhotes de Dachshund aconchegados"></div>
+      <div class="photo-card card-3"><img src="assets/filhote-07.jpeg" alt="Filhotes de Dachshund juntos"></div>
+    </div>
+  </div>
+</section>
+
+<div class="wave-divider"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,30 C300,60 900,0 1200,30 L1200,60 L0,60 Z" fill="#F2E3C9"/></svg></div>
+<section id="consciencia">
+  <div class="section-head reveal">
+    <span class="eyebrow">Antes de decidir</span>
+    <h2>Conheça a raça de verdade</h2>
+    <p>Um Dachshund não é só um cachorro fofo — é um compromisso de mais de uma década. Quanto mais você souber agora, melhor a decisão para você e para o filhote.</p>
+  </div>
+  <div class="aware-grid">
+    <div class="aware-card tilt reveal">
+      <div class="ic">🦴</div>
+      <h3>Coluna sensível</h3>
+      <p>A raça tem predisposição a problemas de coluna (IVDD). Precisa evitar pular de móveis e escadas — e uma eventual cirurgia pode custar entre <strong>R$ 3.000 e R$ 8.000</strong>.</p>
+    </div>
+    <div class="aware-card tilt reveal reveal-delay-1">
+      <div class="ic">📆</div>
+      <div class="stat" data-target="16">0</div>
+      <h3>Anos de compromisso</h3>
+      <p>A expectativa de vida gira entre 12 e 16 anos. É uma família nova por mais de uma década — pense na sua rotina daqui a 10 anos.</p>
+    </div>
+    <div class="aware-card tilt reveal reveal-delay-2">
+      <div class="ic">💰</div>
+      <div class="stat">R$ 250-400</div>
+      <h3>Custo mensal médio</h3>
+      <p>Ração premium, banho e tosa, vermífugo e preventivos somam esse valor por mês — sem contar imprevistos veterinários.</p>
+    </div>
+    <div class="aware-card tilt reveal">
+      <div class="ic">🏃</div>
+      <h3>Exercício moderado, sem impacto</h3>
+      <p>Precisa de passeios diários, mas sem saltos ou corridas de alto impacto — atenção redobrada em casas com escadas.</p>
+    </div>
+    <div class="aware-card tilt reveal reveal-delay-1">
+      <div class="ic">❤️</div>
+      <h3>Apego forte</h3>
+      <p>É uma raça companheira e pode desenvolver ansiedade de separação. Não é ideal para quem passa o dia inteiro fora de casa.</p>
+    </div>
+    <div class="aware-card tilt reveal reveal-delay-2">
+      <div class="ic">✅</div>
+      <h3>Retorno garantido</h3>
+      <p>Em troca de todo esse cuidado, você ganha um dos companheiros mais leais, espertos e carinhosos que existem.</p>
+    </div>
+  </div>
+  <div class="aware-banner reveal">
+    Buscamos famílias que já leram até aqui com atenção — isso já diz muito sobre o cuidado que vocês terão. <strong>Continue para o quiz</strong> e veja se o momento é ideal para adotar.
+  </div>
+</section>
+
+<section id="quiz">
+  <div class="section-head reveal">
+    <span class="eyebrow">Quiz de Compatibilidade</span>
+    <h2>Vocês estão prontos para um Dachshund?</h2>
+    <p>6 perguntas rápidas para entender se esse é o momento certo — sem compromisso, só clareza.</p>
+  </div>
+
+  <div class="quiz-card reveal">
+    <div class="quiz-progress" id="quizProgress"></div>
+
+    <form id="quizForm">
+      <div class="quiz-q active" data-q="0" data-weights="0,1,2">
+        <h3>1. Quanto tempo por dia vocês têm disponível para passeios e atenção ao cão?</h3>
+        <div class="quiz-options">
+          <label class="quiz-option"><input type="radio" name="q0" value="0" hidden>Menos de 15 minutos</label>
+          <label class="quiz-option"><input type="radio" name="q0" value="1" hidden>Entre 30 e 40 minutos</label>
+          <label class="quiz-option"><input type="radio" name="q0" value="2" hidden>Mais de 1 hora, com folga na rotina</label>
+        </div>
+      </div>
+
+      <div class="quiz-q" data-q="1">
+        <h3>2. Vocês têm reserva financeira ou plano de saúde pet para emergências veterinárias?</h3>
+        <div class="quiz-options">
+          <label class="quiz-option"><input type="radio" name="q1" value="0" hidden>Não tenho nenhuma reserva</label>
+          <label class="quiz-option"><input type="radio" name="q1" value="1" hidden>Tenho uma reserva parcial</label>
+          <label class="quiz-option"><input type="radio" name="q1" value="2" hidden>Sim, reserva ou plano de saúde pet garantido</label>
+        </div>
+      </div>
+
+      <div class="quiz-q" data-q="2">
+        <h3>3. Sua rotina permite esse compromisso pelos próximos 12 a 16 anos?</h3>
+        <div class="quiz-options">
+          <label class="quiz-option"><input type="radio" name="q2" value="0" hidden>Não sei dizer, é cedo pra pensar nisso</label>
+          <label class="quiz-option"><input type="radio" name="q2" value="1" hidden>Provavelmente sim</label>
+          <label class="quiz-option"><input type="radio" name="q2" value="2" hidden>Sim, já pensamos nisso com calma</label>
+        </div>
+      </div>
+
+      <div class="quiz-q" data-q="3">
+        <h3>4. Como é o ambiente onde o filhote vai morar?</h3>
+        <div class="quiz-options">
+          <label class="quiz-option"><input type="radio" name="q3" value="0" hidden>Muitas escadas ou sofás altos, sem adaptação</label>
+          <label class="quiz-option"><input type="radio" name="q3" value="1" hidden>Espaço ok, pretendo adaptar</label>
+          <label class="quiz-option"><input type="radio" name="q3" value="2" hidden>Ambiente seguro e já adaptado para a coluna do cão</label>
+        </div>
+      </div>
+
+      <div class="quiz-q" data-q="4">
+        <h3>5. O quanto vocês já pesquisaram sobre as necessidades específicas da raça?</h3>
+        <div class="quiz-options">
+          <label class="quiz-option"><input type="radio" name="q4" value="0" hidden>Nunca pesquisei, só achei fofo</label>
+          <label class="quiz-option"><input type="radio" name="q4" value="1" hidden>Já ouvi falar um pouco</label>
+          <label class="quiz-option"><input type="radio" name="q4" value="2" hidden>Já pesquisei bastante sobre saúde e cuidados</label>
+        </div>
+      </div>
+
+      <div class="quiz-q" data-q="5">
+        <h3>6. Quem vai cuidar do filhote no dia a dia?</h3>
+        <div class="quiz-options">
+          <label class="quiz-option"><input type="radio" name="q5" value="0" hidden>Vai ficar sozinho a maior parte do tempo</label>
+          <label class="quiz-option"><input type="radio" name="q5" value="1" hidden>Alguém em casa boa parte do dia</label>
+          <label class="quiz-option"><input type="radio" name="q5" value="2" hidden>Rotina flexível, sempre tem alguém por perto</label>
+        </div>
+      </div>
+    </form>
+
+    <div class="quiz-nav">
+      <button class="btn btn-secondary" id="quizPrev" disabled type="button">← Voltar</button>
+      <button class="btn btn-primary" id="quizNext" type="button">Próxima →</button>
+    </div>
+
+    <div class="quiz-result" id="quizResult">
+      <div class="result-emoji" id="resultEmoji">🎉</div>
+      <div class="result-title" id="resultTitle">Vocês estão prontos!</div>
+      <div class="result-meter"><div class="result-meter-fill" id="resultMeterFill"></div></div>
+      <p class="result-desc" id="resultDesc"></p>
+      <ul class="result-tips" id="resultTips"></ul>
+      <p class="price-subnote" id="attemptsNote" style="margin-bottom:18px;"></p>
+      <a class="btn btn-primary" id="resultCta" target="_blank" style="display:none;">💬 Falar no WhatsApp</a>
+      <button class="btn btn-secondary" id="retryQuizBtn" type="button" style="display:none;">🔁 Tentar novamente</button>
+    </div>
+  </div>
+</section>
+
+<div class="wave-divider"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,30 C300,60 900,0 1200,30 L1200,60 L0,60 Z" fill="#F2E3C9"/></svg></div>
+<section id="galeria">
+  <div class="section-head reveal">
+    <span class="eyebrow">Galeria</span>
+    <h2>Conheça um pouquinho deles</h2>
+    <p>Mais fotos e vídeos são enviados diretamente pelo WhatsApp — é só chamar!</p>
+  </div>
+  <div class="gallery-grid">
+    <div class="video-box reveal">
+      <video controls poster="assets/filhote-01.jpeg">
+        <source src="assets/filhote-video.mp4" type="video/mp4">
+        Seu navegador não suporta vídeo. <a href="assets/filhote-video.mp4">Clique aqui para assistir</a>.
+      </video>
+    </div>
+    <div class="frame reveal reveal-delay-1"><img src="assets/filhote-03.jpeg" alt="Filhote de Dachshund olhando para cima"></div>
+  </div>
+  <div class="placeholder-grid">
+    <div class="frame reveal"><img src="assets/filhote-02.jpeg" alt="Filhote de Dachshund de perto"></div>
+    <div class="frame reveal reveal-delay-1"><img src="assets/filhote-06.jpeg" alt="Filhote de Dachshund brincando"></div>
+    <div class="frame reveal reveal-delay-2"><img src="assets/filhote-08.jpeg" alt="Filhote de Dachshund deitado de barriga para cima"></div>
+    <div class="placeholder-photo">📄<br>Foto do laudo de pedigree</div>
+  </div>
+</section>
+
+<section id="preco">
+  <div class="section-head reveal">
+    <span class="eyebrow">Investimento</span>
+    <h2>Valor por filhote</h2>
+  </div>
+  <div class="price-card reveal">
+    <span class="price-badge">🔥 OFERTA POR TEMPO LIMITADO</span>
+    <div>Valor promocional</div>
+    <span class="price-old">De R$ 2.200</span>
+    <div class="price-value">R$ 1.800 <small>/ filhote</small></div>
+    <p class="price-note">Com pedigree — pais com laudo disponível para consulta. Faixa alinhada ao mercado de Dachshund com documentação na região de São Paulo, com valor promocional para agilizar a entrega aos novos lares. O valor final pode variar por filhote (cor, porte e sexo) — combine diretamente pelo WhatsApp.</p>
+    <p class="price-subnote">Lembrando: o valor do filhote é só o início. Reserve também orçamento mensal para alimentação premium e cuidados preventivos — é isso que garante uma vida longa e saudável para ele.</p>
+    <div class="price-includes">
+      <span>✅ Pais com pedigree</span>
+      <span>✅ Vacinas em dia</span>
+      <span>✅ Vermifugado</span>
+      <span>✅ Entrega grátis (Alto Tietê)</span>
+      <span>✅ Acompanhamento pós-entrega</span>
+      <span>✅ Fotos e vídeos reais</span>
+    </div>
+    <a class="btn btn-primary gated" id="priceCta" href="#quiz"
+       data-real-href="https://wa.me/5511920698756?text=Oi!%20Tenho%20interesse%20em%20um%20filhote%20de%20Dachshund.%20Pode%20me%20passar%20mais%20informa%C3%A7%C3%B5es%3F"
+       data-real-text="💬 Quero saber mais">🔒 Faça o quiz para liberar o contato</a>
+  </div>
+</section>
+
+<section id="contato">
+  <div class="contact-card reveal">
+    <h2>Vamos conversar sobre o novo integrante da família? 🐾</h2>
+    <p>Me chama no WhatsApp com qualquer dúvida, para combinar uma visita ou agendar a retirada do filhote.</p>
+    <div class="contact-row">
+      <a class="btn btn-primary gated" id="contactBtn" href="#quiz"
+         data-real-href="https://wa.me/5511920698756?text=Oi!%20Vi%20o%20site%20dos%20filhotes%20de%20Dachshund%20e%20tenho%20interesse!"
+         data-real-text="💬 (11) 92069-8756">🔒 Complete o quiz para ver o contato</a>
+    </div>
+    <p class="locked-note" id="contactLockedNote">O número só é liberado depois do <a href="#quiz" style="color:#fff;">quiz de compatibilidade</a> — é rápido, prometemos 🐾</p>
+    <div class="contact-info">📍 <strong>Suzano, SP</strong> — visitas com agendamento prévio<br>🚗 <strong>Entrega grátis</strong> para toda a região do Alto Tietê</div>
+  </div>
+</section>
+
+<footer>
+  Feito com 🐾 para encontrar um lar cheio de amor. © 2026
+</footer>
+
+<a class="float-whats gated" id="floatWhats" href="#quiz"
+   data-real-href="https://wa.me/5511920698756?text=Oi!%20Vi%20o%20site%20dos%20filhotes%20de%20Dachshund%20e%20tenho%20interesse!"
+   data-real-text="💬" data-real-title="Falar no WhatsApp"
+   title="Faça o quiz para liberar o contato">🧩</a>
+
+<div class="video-modal-overlay" id="videoModalOverlay">
+  <div class="video-modal-box" id="videoModalBox">
+    <button class="video-modal-close" id="videoModalClose" type="button" aria-label="Fechar vídeo">✕</button>
+  </div>
+</div>
+
+<script>
+  // ---- Menu sanduíche (mobile) ----
+  (function(){
+    const btn = document.getElementById('hamburgerBtn');
+    const nav = document.getElementById('mainNav');
+    const overlay = document.getElementById('navOverlay');
+    if(!btn || !nav) return;
+    function closeMenu(){
+      btn.classList.remove('open');
+      nav.classList.remove('open');
+      overlay.classList.remove('show');
+      btn.setAttribute('aria-expanded', 'false');
+    }
+    function toggleMenu(){
+      const isOpen = nav.classList.toggle('open');
+      btn.classList.toggle('open', isOpen);
+      overlay.classList.toggle('show', isOpen);
+      btn.setAttribute('aria-expanded', String(isOpen));
+    }
+    btn.addEventListener('click', toggleMenu);
+    overlay.addEventListener('click', closeMenu);
+    nav.querySelectorAll('a').forEach(a => a.addEventListener('click', closeMenu));
+    window.addEventListener('resize', () => { if(window.innerWidth > 860) closeMenu(); });
+  })();
+
+  // ---- Vídeo em destaque (embed do YouTube) + modal ----
+  (function(){
+    const YT_ID = 'RUkyTIy7YKM';
+    const expandBtn = document.getElementById('expandVideoBtn');
+    const overlay = document.getElementById('videoModalOverlay');
+    const modalBox = document.getElementById('videoModalBox');
+    const closeBtn = document.getElementById('videoModalClose');
+    if(!expandBtn || !overlay || !modalBox) return;
+
+    // O card do hero é só um embed do YouTube tocando em loop — não precisa de JS pra funcionar.
+    // O modal cria seu próprio embed do zero toda vez que abre, e destrói ao fechar.
+    let expandedFrame = null;
+
+    function openModal(){
+      overlay.classList.add('active');
+      document.body.style.overflow = 'hidden';
+
+      expandedFrame = document.createElement('iframe');
+      expandedFrame.src = 'https://www.youtube.com/embed/' + YT_ID + '?autoplay=1&playsinline=1&rel=0';
+      expandedFrame.title = 'Vídeo dos filhotes de Dachshund';
+      expandedFrame.setAttribute('frameborder', '0');
+      expandedFrame.setAttribute('allow', 'autoplay; encrypted-media; fullscreen');
+      expandedFrame.setAttribute('allowfullscreen', '');
+      modalBox.appendChild(expandedFrame);
+    }
+    function closeModal(){
+      overlay.classList.remove('active');
+      document.body.style.overflow = '';
+      if(expandedFrame){
+        expandedFrame.remove();
+        expandedFrame = null;
+      }
+    }
+    expandBtn.addEventListener('click', openModal);
+    closeBtn.addEventListener('click', closeModal);
+    overlay.addEventListener('click', (e) => { if(e.target === overlay) closeModal(); });
+    document.addEventListener('keydown', (e) => { if(e.key === 'Escape' && overlay.classList.contains('active')) closeModal(); });
+  })();
+
+  // ---- Paws flutuantes decorativas no hero ----
+  // ---- Paws flutuantes decorativas no hero ----
+  (function(){
+    const field = document.getElementById('pawField');
+    if(!field) return;
+    const n = 10;
+    for(let i = 0; i < n; i++){
+      const s = document.createElement('span');
+      s.textContent = '🐾';
+      s.style.left = (Math.random() * 100) + '%';
+      s.style.bottom = (-20 - Math.random() * 40) + 'px';
+      s.style.animationDuration = (7 + Math.random() * 8) + 's';
+      s.style.animationDelay = (Math.random() * 8) + 's';
+      s.style.fontSize = (1 + Math.random() * 1.2) + 'rem';
+      field.appendChild(s);
+    }
+  })();
+
+  // ---- Tilt 3D nos cards ----
+  document.querySelectorAll('.tilt').forEach(card => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      const x = (e.clientX - r.left) / r.width - 0.5;
+      const y = (e.clientY - r.top) / r.height - 0.5;
+      card.style.transform = 'perspective(600px) rotateY(' + (x * 10) + 'deg) rotateX(' + (-y * 10) + 'deg) translateY(-4px)';
+    });
+    card.addEventListener('mouseleave', () => { card.style.transform = ''; });
+  });
+
+  // ---- Scrollspy do menu ----
+  const navLinks = Array.from(document.querySelectorAll('nav a[href^="#"]'));
+  const spySections = navLinks
+    .map(a => document.querySelector(a.getAttribute('href')))
+    .filter(Boolean);
+  function updateScrollspy(){
+    let currentId = null;
+    spySections.forEach(sec => {
+      const rect = sec.getBoundingClientRect();
+      if(rect.top <= 140 && rect.bottom > 140){ currentId = '#' + sec.id; }
+    });
+    navLinks.forEach(a => {
+      a.classList.toggle('active-link', a.getAttribute('href') === currentId);
+    });
+  }
+  window.addEventListener('scroll', updateScrollspy);
+  updateScrollspy();
+
+  // ---- Confete de patinhas ao aprovar no quiz ----
+  function pawConfetti(){
+    for(let i = 0; i < 24; i++){
+      const p = document.createElement('div');
+      p.className = 'confetti-paw';
+      p.textContent = Math.random() > 0.5 ? '🐾' : '🎉';
+      p.style.left = (Math.random() * 100) + 'vw';
+      p.style.animationDelay = (Math.random() * 0.6) + 's';
+      p.style.animationDuration = (2 + Math.random() * 1.4) + 's';
+      document.body.appendChild(p);
+      setTimeout(() => p.remove(), 4000);
+    }
+  }
+
+  // ---- Contato travado até PASSAR no quiz (máx. 3 tentativas) ----
+  const QUIZ_DONE_KEY = 'dsQuizDone';       // '1' = passou e contato liberado
+  const QUIZ_ATTEMPTS_KEY = 'dsQuizAttempts';
+  const QUIZ_PCT_KEY = 'dsQuizPct';
+  const PASS_THRESHOLD = 80;                // só a faixa "Alto compromisso" libera
+  const MAX_ATTEMPTS = 3;
+
+  function waLinkWithMsg(msg){
+    return 'https://wa.me/5511920698756?text=' + encodeURIComponent(msg);
+  }
+
+  function applyLockState(){
+    const done = localStorage.getItem(QUIZ_DONE_KEY) === '1';
+    const gated = document.querySelectorAll('.gated');
+    if(done){
+      const storedPct = localStorage.getItem(QUIZ_PCT_KEY);
+      const msg = storedPct
+        ? 'Oi! Fiz o quiz de compatibilidade do site e fui aprovado(a) (resultado: ' + storedPct + '%). Tenho interesse em adotar um Dachshund e gostaria de conversar!'
+        : 'Oi! Tenho interesse em adotar um Dachshund!';
+      const waLink = waLinkWithMsg(msg);
+      gated.forEach(el => {
+        el.setAttribute('href', waLink);
+        el.setAttribute('target', '_blank');
+        if(el.dataset.realText) el.textContent = el.dataset.realText;
+        if(el.dataset.realTitle) el.setAttribute('title', el.dataset.realTitle);
+        el.classList.remove('locked');
+      });
+    } else {
+      gated.forEach(el => el.classList.add('locked'));
+    }
+    const note = document.getElementById('contactLockedNote');
+    if(note) note.classList.toggle('show', !done);
+  }
+  applyLockState();
+
+  // ---- Scroll reveal ----
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('in-view'); io.unobserve(e.target); } });
+  }, { threshold: 0.15 });
+  revealEls.forEach(el => io.observe(el));
+
+  // ---- Animated counters ----
+  const counters = document.querySelectorAll('.stat[data-target]');
+  const cio = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if(e.isIntersecting){
+        const el = e.target;
+        const target = parseInt(el.getAttribute('data-target'), 10);
+        let cur = 0;
+        const step = Math.max(1, Math.round(target / 30));
+        const t = setInterval(() => {
+          cur += step;
+          if(cur >= target){ cur = target; clearInterval(t); }
+          el.textContent = cur;
+        }, 30);
+        cio.unobserve(el);
+      }
+    });
+  }, { threshold: 0.4 });
+  counters.forEach(el => cio.observe(el));
+
+  // ---- Awareness bar ----
+  const fill = document.getElementById('awarenessFill');
+  const walker = document.getElementById('awarenessWalker');
+  const goal = document.getElementById('awarenessGoal');
+  function updateAwareness(){
+    const h = document.documentElement;
+    const scrollTop = h.scrollTop || document.body.scrollTop;
+    const scrollHeight = (h.scrollHeight || document.body.scrollHeight) - h.clientHeight;
+    const pct = scrollHeight > 0 ? Math.min(100, (scrollTop / scrollHeight) * 100) : 0;
+    fill.style.width = pct + '%';
+    walker.style.left = pct + '%';
+    goal.classList.toggle('reached', pct > 96);
+  }
+  window.addEventListener('scroll', updateAwareness);
+  updateAwareness();
+
+  // ---- Subtle parallax on hero photo ----
+  const heroPhoto = document.getElementById('heroPhoto');
+  window.addEventListener('scroll', () => {
+    const y = window.scrollY;
+    if(y < 700){ heroPhoto.style.transform = 'translateY(' + Math.min(y * 0.08, 40) + 'px)'; }
+  });
+
+  // ---- Quiz logic ----
+  const questions = Array.from(document.querySelectorAll('.quiz-q'));
+  const progressWrap = document.getElementById('quizProgress');
+  const prevBtn = document.getElementById('quizPrev');
+  const nextBtn = document.getElementById('quizNext');
+  const form = document.getElementById('quizForm');
+  const resultBox = document.getElementById('quizResult');
+  const retryQuizBtn = document.getElementById('retryQuizBtn');
+  let current = 0;
+
+  questions.forEach((_, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'quiz-dot';
+    progressWrap.appendChild(dot);
+  });
+  const dots = Array.from(progressWrap.children);
+
+  function renderOptionsState(){
+    questions.forEach((q) => {
+      const name = q.querySelector('input').name;
+      const checked = q.querySelector('input:checked');
+      q.querySelectorAll('.quiz-option').forEach(opt => opt.classList.remove('selected'));
+      if(checked){ checked.closest('.quiz-option').classList.add('selected'); }
+    });
+  }
+
+  form.addEventListener('change', renderOptionsState);
+
+  document.querySelectorAll('.quiz-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      opt.querySelectorAll('input')[0].checked = true;
+      renderOptionsState();
+    });
+  });
+
+  function showQuestion(i){
+    questions.forEach((q, idx) => q.classList.toggle('active', idx === i));
+    dots.forEach((d, idx) => d.classList.toggle('done', idx < i));
+    prevBtn.disabled = i === 0;
+    nextBtn.textContent = (i === questions.length - 1) ? 'Ver resultado →' : 'Próxima →';
+  }
+
+  prevBtn.addEventListener('click', () => {
+    if(current > 0){ current--; showQuestion(current); }
+  });
+
+  nextBtn.addEventListener('click', () => {
+    const q = questions[current];
+    const answered = q.querySelector('input:checked');
+    if(!answered){
+      q.style.animation = 'none';
+      q.offsetHeight;
+      q.style.animation = null;
+      q.querySelector('h3').style.color = '#E85A4F';
+      setTimeout(() => { q.querySelector('h3').style.color = ''; }, 900);
+      return;
+    }
+    if(current < questions.length - 1){
+      current++;
+      showQuestion(current);
+    } else {
+      finishQuiz();
+    }
+  });
+
+  function finishQuiz(){
+    let score = 0;
+    questions.forEach(q => {
+      const checked = q.querySelector('input:checked');
+      if(checked) score += parseInt(checked.value, 10);
+    });
+    const pct = Math.round((score / 12) * 100);
+    const passed = pct >= PASS_THRESHOLD;
+
+    document.querySelector('.quiz-progress').style.display = 'none';
+    questions.forEach(q => q.classList.remove('active'));
+    document.querySelector('.quiz-nav').style.display = 'none';
+    resultBox.classList.add('active');
+
+    const meterFill = document.getElementById('resultMeterFill');
+    const emoji = document.getElementById('resultEmoji');
+    const title = document.getElementById('resultTitle');
+    const desc = document.getElementById('resultDesc');
+    const tips = document.getElementById('resultTips');
+    const cta = document.getElementById('resultCta');
+    const retryBtn = document.getElementById('retryQuizBtn');
+    const attemptsNote = document.getElementById('attemptsNote');
+
+    let color, tipsList;
+    if(pct >= 80){
+      color = 'var(--ok)'; emoji.textContent = '🎉';
+      title.textContent = 'Vocês estão prontos!';
+      desc.textContent = 'Perfil ideal: tempo, estrutura e consciência sobre os cuidados de um Dachshund. É exatamente esse tipo de família que buscamos para nossos filhotes.';
+      tipsList = ['Combine uma visita para conhecer o filhote pessoalmente', 'Pergunte sobre o laudo de pedigree dos pais', 'Já pode ir pesquisando veterinário de confiança na região'];
+    } else if(pct >= 50){
+      color = 'var(--warn)'; emoji.textContent = '🤔';
+      title.textContent = 'Bom potencial, mas ainda não aprovado';
+      desc.textContent = 'Vocês têm uma boa base, mas o perfil ainda não atingiu o nível que buscamos — principalmente em tempo disponível ou reserva para emergências veterinárias.';
+      tipsList = ['Monte uma reserva financeira para imprevistos de saúde', 'Ajuste a rotina para garantir passeios diários', 'Adapte o ambiente para proteger a coluna do cão'];
+    } else {
+      color = 'var(--info)'; emoji.textContent = '📚';
+      title.textContent = 'Ainda não é o momento ideal';
+      desc.textContent = 'Sem problema — é melhor descobrir isso agora do que depois. Um Dachshund merece tempo, estrutura e planejamento financeiro. Use esse tempo para se preparar.';
+      tipsList = ['Pesquise mais sobre a saúde da coluna e cuidados da raça', 'Planeje uma reserva financeira antes de adotar', 'Reavalie sua rotina diária de tempo disponível'];
+    }
+
+    title.style.color = color;
+    meterFill.style.background = color;
+    tips.innerHTML = tipsList.map(t => '<li>' + t + '</li>').join('');
+    setTimeout(() => { meterFill.style.width = pct + '%'; }, 100);
+
+    if(passed){
+      localStorage.setItem(QUIZ_DONE_KEY, '1');
+      localStorage.setItem(QUIZ_PCT_KEY, pct);
+      applyLockState();
+      const msg = 'Oi! Fiz o quiz de compatibilidade do site e fui aprovado(a) (resultado: ' + pct + '%, alto compromisso). Tenho interesse em adotar um Dachshund e gostaria de conversar!';
+      cta.href = waLinkWithMsg(msg);
+      cta.style.display = 'inline-flex';
+      retryBtn.style.display = 'none';
+      attemptsNote.textContent = '✅ Quiz aprovado — o contato foi liberado em todo o site.';
+      pawConfetti();
+    } else {
+      let attempts = parseInt(localStorage.getItem(QUIZ_ATTEMPTS_KEY) || '0', 10) + 1;
+      localStorage.setItem(QUIZ_ATTEMPTS_KEY, attempts);
+      cta.style.display = 'none';
+      if(attempts < MAX_ATTEMPTS){
+        retryBtn.style.display = 'inline-flex';
+        attemptsNote.textContent = 'Tentativa ' + attempts + ' de ' + MAX_ATTEMPTS + ' — o contato só é liberado com o perfil "alto compromisso". Você pode tentar novamente.';
+      } else {
+        retryBtn.style.display = 'none';
+        attemptsNote.textContent = 'Você atingiu o limite de ' + MAX_ATTEMPTS + ' tentativas. Obrigado por dedicar esse tempo — pense com calma antes de considerar adotar no futuro.';
+      }
+    }
+  }
+
+  retryQuizBtn.addEventListener('click', () => {
+    form.querySelectorAll('input[type=radio]').forEach(i => i.checked = false);
+    document.querySelectorAll('.quiz-option').forEach(o => o.classList.remove('selected'));
+    current = 0;
+    resultBox.classList.remove('active');
+    document.querySelector('.quiz-progress').style.display = 'flex';
+    document.querySelector('.quiz-nav').style.display = 'flex';
+    showQuestion(0);
+  });
+
+  // ---- Bloqueia o quiz de vez se já usou as 3 tentativas sem passar ----
+  function lockOutQuiz(){
+    document.querySelector('.quiz-progress').style.display = 'none';
+    questions.forEach(q => q.classList.remove('active'));
+    document.querySelector('.quiz-nav').style.display = 'none';
+    resultBox.classList.add('active');
+    document.getElementById('resultEmoji').textContent = '🚫';
+    const t = document.getElementById('resultTitle');
+    t.textContent = 'Limite de tentativas atingido';
+    t.style.color = 'var(--info)';
+    document.getElementById('resultDesc').textContent = 'Você já respondeu o quiz ' + MAX_ATTEMPTS + ' vezes sem atingir o perfil necessário para liberar o contato.';
+    document.getElementById('resultTips').innerHTML = '';
+    document.getElementById('resultMeterFill').style.width = '0%';
+    document.getElementById('attemptsNote').textContent = '';
+    document.getElementById('resultCta').style.display = 'none';
+    document.getElementById('retryQuizBtn').style.display = 'none';
+  }
+
+  const alreadyPassed = localStorage.getItem(QUIZ_DONE_KEY) === '1';
+  const attemptsSoFar = parseInt(localStorage.getItem(QUIZ_ATTEMPTS_KEY) || '0', 10);
+  if(!alreadyPassed && attemptsSoFar >= MAX_ATTEMPTS){
+    lockOutQuiz();
+  } else {
+    showQuestion(0);
+  }
+</script>
+
+</body>
+</html>
