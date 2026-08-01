@@ -379,9 +379,11 @@
   .gallery-item:hover{ box-shadow: 0 20px 40px rgba(43,35,32,0.2); transform: translateY(-3px); }
   .gallery-item.span-2{ grid-column: span 2; }
   .gallery-item.span-row-2{ grid-row: span 2; }
+  .gallery-item.span-row-3{ grid-row: span 3; }
   .gallery-item .video-box, .gallery-item .frame{ width:100%; height:100%; }
   .video-box{ background:#000; }
   .gallery-item .video-box video{ width:100%; height:100%; object-fit:cover; display:block; }
+  .gallery-item .video-box iframe{ width:100%; height:100%; display:block; border:0; }
   .gallery-photo{ position:relative; cursor:pointer; }
   .gallery-photo img{ width:100%; height:100%; object-fit:cover; }
   .zoom-hint{
@@ -576,9 +578,11 @@
     <div class="awareness-track-wrap">
       <div class="awareness-track">
         <div class="awareness-fill" id="awarenessFill"></div>
-        <span class="milestone" data-pct="25" title="Coluna sensível">🦴</span>
-        <span class="milestone" data-pct="50" title="12 a 16 anos de compromisso">📆</span>
-        <span class="milestone" data-pct="75" title="Custo mensal">💰</span>
+        <span class="milestone" data-pct="16" title="Sobre a ninhada">🐾</span>
+        <span class="milestone" data-pct="32" title="Coluna sensível">🦴</span>
+        <span class="milestone" data-pct="48" title="12 a 16 anos de compromisso">📆</span>
+        <span class="milestone" data-pct="64" title="Apego forte">❤️</span>
+        <span class="milestone" data-pct="80" title="Custo mensal">💰</span>
       </div>
       <span class="awareness-walker" id="awarenessWalker">🐕</span>
     </div>
@@ -595,8 +599,8 @@
     </button>
     <nav id="mainNav">
       <a href="#sobre">Sobre</a>
-      <a href="#consciencia">Conheça a raça</a>
       <a href="#galeria">Galeria</a>
+      <a href="#consciencia">Conheça a raça</a>
       <a href="#quiz">Quiz</a>
       <a href="#preco">Valor</a>
       <a href="#contato">Contato</a>
@@ -684,6 +688,76 @@
       <div class="photo-card card-1"><img src="assets/filhote-05.jpeg" alt="Filhote de Dachshund de barriga para cima"></div>
       <div class="photo-card card-2"><img src="assets/filhote-10.jpeg" alt="Filhotes de Dachshund aconchegados"></div>
       <div class="photo-card card-3"><img src="assets/filhote-07.jpeg" alt="Filhotes de Dachshund juntos"></div>
+    </div>
+  </div>
+</section>
+
+<div class="wave-divider"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,30 C300,60 900,0 1200,30 L1200,60 L0,60 Z" fill="#F2E3C9"/></svg></div>
+<section id="galeria">
+  <div class="section-head reveal">
+    <span class="eyebrow">Galeria</span>
+    <h2>Conheça um pouquinho deles</h2>
+    <p>Mais fotos e vídeos são enviados diretamente pelo WhatsApp, é só chamar! Clique em qualquer foto para ampliar.</p>
+  </div>
+  <div class="gallery-masonry" id="galleryMasonry">
+    <div class="gallery-item span-row-3 reveal">
+      <div class="video-box">
+        <iframe src="https://www.youtube.com/embed/RUkyTIy7YKM" title="Vídeo dos filhotes de Dachshund" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
+      </div>
+    </div>
+    <div class="gallery-item span-2 reveal reveal-delay-1">
+      <div class="frame gallery-photo" data-full="assets/filhote-03.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
+        <img src="assets/filhote-03.jpeg" alt="Filhote de Dachshund olhando para cima">
+        <span class="zoom-hint">🔍</span>
+      </div>
+    </div>
+    <div class="gallery-item reveal reveal-delay-2">
+      <div class="frame gallery-photo" data-full="assets/filhote-02.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
+        <img src="assets/filhote-02.jpeg" alt="Filhote de Dachshund de perto">
+        <span class="zoom-hint">🔍</span>
+      </div>
+    </div>
+    <div class="gallery-item reveal reveal-delay-3">
+      <div class="frame gallery-photo" data-full="assets/filhote-06.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
+        <img src="assets/filhote-06.jpeg" alt="Filhote de Dachshund brincando">
+        <span class="zoom-hint">🔍</span>
+      </div>
+    </div>
+    <div class="gallery-item reveal reveal-delay-4">
+      <div class="frame gallery-photo" data-full="assets/filhote-08.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
+        <img src="assets/filhote-08.jpeg" alt="Filhote de Dachshund deitado de barriga para cima">
+        <span class="zoom-hint">🔍</span>
+      </div>
+    </div>
+    <div class="gallery-item span-2 reveal reveal-delay-5">
+      <div class="frame gallery-photo" data-full="assets/filhote-10.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
+        <img src="assets/filhote-10.jpeg" alt="Filhotes de Dachshund aconchegados">
+        <span class="zoom-hint">🔍</span>
+      </div>
+    </div>
+    <div class="gallery-item reveal">
+      <div class="frame gallery-photo" data-full="assets/filhote-05.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
+        <img src="assets/filhote-05.jpeg" alt="Filhote de Dachshund de barriga para cima">
+        <span class="zoom-hint">🔍</span>
+      </div>
+    </div>
+    <div class="gallery-item reveal reveal-delay-1">
+      <div class="frame gallery-photo" data-full="assets/filhote-07.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
+        <img src="assets/filhote-07.jpeg" alt="Filhotes de Dachshund juntos">
+        <span class="zoom-hint">🔍</span>
+      </div>
+    </div>
+    <div class="gallery-item reveal reveal-delay-2">
+      <div class="frame gallery-photo" data-full="assets/filhote-09.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
+        <img src="assets/filhote-09.jpeg" alt="Filhotes de Dachshund juntos">
+        <span class="zoom-hint">🔍</span>
+      </div>
+    </div>
+    <div class="gallery-item reveal reveal-delay-3">
+      <div class="frame gallery-photo" data-full="assets/filhote-04.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
+        <img src="assets/filhote-04.jpeg" alt="Filhote de Dachshund">
+        <span class="zoom-hint">🔍</span>
+      </div>
     </div>
   </div>
 </section>
@@ -813,79 +887,6 @@
       <p class="price-subnote" id="attemptsNote" style="margin-bottom:18px;"></p>
       <a class="btn btn-primary" id="resultCta" target="_blank" style="display:none;">💬 Falar no WhatsApp</a>
       <button class="btn btn-secondary" id="retryQuizBtn" type="button" style="display:none;">🔁 Tentar novamente</button>
-    </div>
-  </div>
-</section>
-
-<div class="wave-divider"><svg viewBox="0 0 1200 60" preserveAspectRatio="none"><path d="M0,30 C300,60 900,0 1200,30 L1200,60 L0,60 Z" fill="#F2E3C9"/></svg></div>
-<section id="galeria">
-  <div class="section-head reveal">
-    <span class="eyebrow">Galeria</span>
-    <h2>Conheça um pouquinho deles</h2>
-    <p>Mais fotos e vídeos são enviados diretamente pelo WhatsApp, é só chamar! Clique em qualquer foto para ampliar.</p>
-  </div>
-  <div class="gallery-masonry" id="galleryMasonry">
-    <div class="gallery-item span-2 span-row-2 reveal">
-      <div class="video-box">
-        <video controls poster="assets/filhote-01.jpeg">
-          <source src="assets/filhote-video.mp4" type="video/mp4">
-          Seu navegador não suporta vídeo. <a href="assets/filhote-video.mp4">Clique aqui para assistir</a>.
-        </video>
-      </div>
-    </div>
-    <div class="gallery-item span-2 reveal reveal-delay-1">
-      <div class="frame gallery-photo" data-full="assets/filhote-03.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
-        <img src="assets/filhote-03.jpeg" alt="Filhote de Dachshund olhando para cima">
-        <span class="zoom-hint">🔍</span>
-      </div>
-    </div>
-    <div class="gallery-item reveal reveal-delay-2">
-      <div class="frame gallery-photo" data-full="assets/filhote-02.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
-        <img src="assets/filhote-02.jpeg" alt="Filhote de Dachshund de perto">
-        <span class="zoom-hint">🔍</span>
-      </div>
-    </div>
-    <div class="gallery-item reveal reveal-delay-3">
-      <div class="frame gallery-photo" data-full="assets/filhote-06.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
-        <img src="assets/filhote-06.jpeg" alt="Filhote de Dachshund brincando">
-        <span class="zoom-hint">🔍</span>
-      </div>
-    </div>
-    <div class="gallery-item reveal reveal-delay-4">
-      <div class="frame gallery-photo" data-full="assets/filhote-08.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
-        <img src="assets/filhote-08.jpeg" alt="Filhote de Dachshund deitado de barriga para cima">
-        <span class="zoom-hint">🔍</span>
-      </div>
-    </div>
-    <div class="gallery-item span-2 reveal reveal-delay-5">
-      <div class="frame gallery-photo" data-full="assets/filhote-10.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
-        <img src="assets/filhote-10.jpeg" alt="Filhotes de Dachshund aconchegados">
-        <span class="zoom-hint">🔍</span>
-      </div>
-    </div>
-    <div class="gallery-item reveal">
-      <div class="frame gallery-photo" data-full="assets/filhote-05.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
-        <img src="assets/filhote-05.jpeg" alt="Filhote de Dachshund de barriga para cima">
-        <span class="zoom-hint">🔍</span>
-      </div>
-    </div>
-    <div class="gallery-item reveal reveal-delay-1">
-      <div class="frame gallery-photo" data-full="assets/filhote-07.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
-        <img src="assets/filhote-07.jpeg" alt="Filhotes de Dachshund juntos">
-        <span class="zoom-hint">🔍</span>
-      </div>
-    </div>
-    <div class="gallery-item reveal reveal-delay-2">
-      <div class="frame gallery-photo" data-full="assets/filhote-09.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
-        <img src="assets/filhote-09.jpeg" alt="Filhotes de Dachshund juntos">
-        <span class="zoom-hint">🔍</span>
-      </div>
-    </div>
-    <div class="gallery-item reveal reveal-delay-3">
-      <div class="frame gallery-photo" data-full="assets/filhote-04.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
-        <img src="assets/filhote-04.jpeg" alt="Filhote de Dachshund">
-        <span class="zoom-hint">🔍</span>
-      </div>
     </div>
   </div>
 </section>
@@ -1213,13 +1214,40 @@
   const heroPhoto = document.getElementById('heroPhoto');
 
   const milestoneEls = Array.from(document.querySelectorAll('.milestone'));
-  milestoneEls.forEach(m => { m.style.left = m.dataset.pct + '%'; });
+  const milestoneMessages = {};
+
+  // Marcos ancorados no início de cada seção real da página, para a mensagem
+  // sempre bater com o conteúdo que a pessoa está vendo naquele momento.
+  function placeMilestonesInSection(){
+    const h = document.documentElement;
+    const scrollHeight = (h.scrollHeight || document.body.scrollHeight) - h.clientHeight;
+    if(scrollHeight <= 0) return;
+    const scrollTop = h.scrollTop || document.body.scrollTop;
+    const stops = [
+      { id: 'sobre', emoji: '🐾', title: 'Sobre a ninhada', msg: '🐾 Nível 1 de consciência: agora vocês já sabem um pouco mais dos pets' },
+      { id: 'galeria', emoji: '🦴', title: 'Coluna sensível', msg: '🦴 Nível 2 de consciência: conhecendo os filhotes de perto' },
+      { id: 'consciencia', emoji: '📆', title: '12 a 16 anos de compromisso', msg: '📆 Nível 3 de consciência: 12 a 16 anos de compromisso, anotado' },
+      { id: 'quiz', emoji: '❤️', title: 'Apego forte', msg: '❤️ Nível 4 de consciência: hora de ver se vocês estão prontos' },
+      { id: 'preco', emoji: '💰', title: 'Custo mensal', msg: '💰 Nível 5 de consciência: já pensando no custo mensal também' }
+    ];
+    Object.keys(milestoneMessages).forEach(k => delete milestoneMessages[k]);
+    milestoneEls.forEach((m, i) => {
+      const stop = stops[i];
+      const section = stop && document.getElementById(stop.id);
+      if(!stop || !section) return;
+      const rect = section.getBoundingClientRect();
+      const sectionTop = rect.top + scrollTop;
+      const pct = Math.min(100, Math.max(0, (sectionTop / scrollHeight) * 100));
+      m.dataset.pct = pct.toFixed(2);
+      m.textContent = stop.emoji;
+      m.title = stop.title;
+      m.style.left = pct + '%';
+      milestoneMessages[pct.toFixed(2)] = stop.msg;
+    });
+  }
+  placeMilestonesInSection();
+  window.addEventListener('load', placeMilestonesInSection);
   const firedMilestones = new Set();
-  const milestoneMessages = {
-    25: '🦴 Nível 1 de consciência: agora vocês já sabem da coluna sensível',
-    50: '📆 Nível 2 de consciência: 12 a 16 anos de compromisso, anotado',
-    75: '💰 Nível 3 de consciência: já pensando no custo mensal também'
-  };
 
   function showConsciousnessToast(msg){
     const t = document.createElement('div');
@@ -1257,12 +1285,12 @@
       if(pctLabel) pctLabel.textContent = Math.round(pct) + '%';
 
       milestoneEls.forEach(m => {
-        const target = parseFloat(m.dataset.pct);
-        const reached = pct >= target;
+        const key = m.dataset.pct;
+        const reached = pct >= parseFloat(key);
         m.classList.toggle('reached', reached);
-        if(reached && !firedMilestones.has(target)){
-          firedMilestones.add(target);
-          if(milestoneMessages[target]) showConsciousnessToast(milestoneMessages[target]);
+        if(reached && !firedMilestones.has(key)){
+          firedMilestones.add(key);
+          if(milestoneMessages[key]) showConsciousnessToast(milestoneMessages[key]);
         }
       });
 

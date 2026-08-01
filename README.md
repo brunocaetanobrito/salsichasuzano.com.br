@@ -66,6 +66,8 @@ python -m http.server 8000
 npx serve .
 ```
 
+> ⚠️ **Vídeo da galeria (embed do YouTube):** abrir o `index.html` direto do disco (`file://`) faz o navegador bloquear o iframe do YouTube por política de segurança. Para ver o vídeo funcionando, acesse sempre via servidor local (`http://localhost:8000`) ou pelo site já publicado.
+
 ## 💛 Contribuindo
 
 Sugestões, correções e melhorias são bem-vindas! Abra uma issue ou mande um PR.
