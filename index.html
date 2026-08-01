@@ -75,7 +75,13 @@
   }
 
   /* TILT CARDS */
-  .tilt{ transition: transform .15s ease, box-shadow .15s ease; transform-style: preserve-3d; }
+  .tilt{ transition: transform .15s ease, box-shadow .15s ease; transform-style: preserve-3d; position:relative; }
+  .tilt:not(.gallery-item)::after{
+    content:"✅"; position:absolute; top:8px; right:10px; font-size:1rem;
+    opacity:0; transform: scale(.6) rotate(-15deg); transition: opacity .2s ease, transform .2s ease;
+    pointer-events:none;
+  }
+  .tilt:not(.gallery-item):hover::after{ opacity:.85; transform: scale(1) rotate(0deg); }
 
   /* NAV ACTIVE LINK */
   nav a.active-link{ color: var(--tan-dark); position:relative; }
@@ -640,27 +646,27 @@
 </div>
 
 <div class="info-strip">
-  <div class="info-card reveal">
+  <div class="info-card tilt reveal">
     <div class="ic">🐕</div>
     <h4>4 filhotes</h4>
     <p>Disponíveis agora</p>
   </div>
-  <div class="info-card reveal reveal-delay-1">
+  <div class="info-card tilt reveal reveal-delay-1">
     <div class="ic">🏆</div>
     <h4>Com pedigree</h4>
     <p>Pais com laudo</p>
   </div>
-  <div class="info-card reveal reveal-delay-2">
+  <div class="info-card tilt reveal reveal-delay-2">
     <div class="ic">💉</div>
     <h4>Vacinados</h4>
     <p>e vermifugados</p>
   </div>
-  <div class="info-card reveal reveal-delay-3">
+  <div class="info-card tilt reveal reveal-delay-3">
     <div class="ic">📅</div>
     <h4>60+ dias</h4>
     <p>Prontos para o novo lar</p>
   </div>
-  <div class="info-card reveal reveal-delay-4">
+  <div class="info-card tilt reveal reveal-delay-4">
     <div class="ic">📍</div>
     <h4>Suzano, SP</h4>
     <p>Entrega no Alto Tietê</p>
@@ -705,55 +711,55 @@
         <iframe src="https://www.youtube.com/embed/RUkyTIy7YKM" title="Vídeo dos filhotes de Dachshund" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen loading="lazy"></iframe>
       </div>
     </div>
-    <div class="gallery-item span-2 reveal reveal-delay-1">
+    <div class="gallery-item span-2 tilt reveal reveal-delay-1">
       <div class="frame gallery-photo" data-full="assets/filhote-03.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
         <img src="assets/filhote-03.jpeg" alt="Filhote de Dachshund olhando para cima">
         <span class="zoom-hint">🔍</span>
       </div>
     </div>
-    <div class="gallery-item reveal reveal-delay-2">
+    <div class="gallery-item tilt reveal reveal-delay-2">
       <div class="frame gallery-photo" data-full="assets/filhote-02.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
         <img src="assets/filhote-02.jpeg" alt="Filhote de Dachshund de perto">
         <span class="zoom-hint">🔍</span>
       </div>
     </div>
-    <div class="gallery-item reveal reveal-delay-3">
+    <div class="gallery-item tilt reveal reveal-delay-3">
       <div class="frame gallery-photo" data-full="assets/filhote-06.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
         <img src="assets/filhote-06.jpeg" alt="Filhote de Dachshund brincando">
         <span class="zoom-hint">🔍</span>
       </div>
     </div>
-    <div class="gallery-item reveal reveal-delay-4">
+    <div class="gallery-item tilt reveal reveal-delay-4">
       <div class="frame gallery-photo" data-full="assets/filhote-08.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
         <img src="assets/filhote-08.jpeg" alt="Filhote de Dachshund deitado de barriga para cima">
         <span class="zoom-hint">🔍</span>
       </div>
     </div>
-    <div class="gallery-item span-2 reveal reveal-delay-5">
+    <div class="gallery-item span-2 tilt reveal reveal-delay-5">
       <div class="frame gallery-photo" data-full="assets/filhote-10.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
         <img src="assets/filhote-10.jpeg" alt="Filhotes de Dachshund aconchegados">
         <span class="zoom-hint">🔍</span>
       </div>
     </div>
-    <div class="gallery-item reveal">
+    <div class="gallery-item tilt reveal">
       <div class="frame gallery-photo" data-full="assets/filhote-05.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
         <img src="assets/filhote-05.jpeg" alt="Filhote de Dachshund de barriga para cima">
         <span class="zoom-hint">🔍</span>
       </div>
     </div>
-    <div class="gallery-item reveal reveal-delay-1">
+    <div class="gallery-item tilt reveal reveal-delay-1">
       <div class="frame gallery-photo" data-full="assets/filhote-07.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
         <img src="assets/filhote-07.jpeg" alt="Filhotes de Dachshund juntos">
         <span class="zoom-hint">🔍</span>
       </div>
     </div>
-    <div class="gallery-item reveal reveal-delay-2">
+    <div class="gallery-item tilt reveal reveal-delay-2">
       <div class="frame gallery-photo" data-full="assets/filhote-09.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
         <img src="assets/filhote-09.jpeg" alt="Filhotes de Dachshund juntos">
         <span class="zoom-hint">🔍</span>
       </div>
     </div>
-    <div class="gallery-item reveal reveal-delay-3">
+    <div class="gallery-item tilt reveal reveal-delay-3">
       <div class="frame gallery-photo" data-full="assets/filhote-04.jpeg" tabindex="0" role="button" aria-label="Ampliar foto">
         <img src="assets/filhote-04.jpeg" alt="Filhote de Dachshund">
         <span class="zoom-hint">🔍</span>
@@ -896,7 +902,7 @@
     <span class="eyebrow">Investimento</span>
     <h2>Valor por filhote</h2>
   </div>
-  <div class="price-card reveal">
+  <div class="price-card tilt reveal">
     <span class="price-badge">🔥 OFERTA POR TEMPO LIMITADO</span>
     <div>Valor promocional</div>
     <span class="price-old">De R$ 2.200</span>
